@@ -1,5 +1,5 @@
-Grading at 09/04/2018:15:34:28.814263
-For commit ID 606d1a65a16ab3e52ecac527667b8300cf00b02f
+Grading at 09/04/2018:15:47:13.782758
+For commit ID 910b176ee268821ebc66b3ec6a94644bc76ca7e8
 Checking for 'void squares(int size1, int x_offset, int y_offset, int size2)'
 [32mfound 'void squares(int size1, int x_offset, int y_offset, int size2)' in your source code 'squares.c'[0m
 [32mSuccessfully compiled ['squares.c'].[0m
@@ -169,26 +169,26 @@ Exit status of your code: 0
 checking squares(2, 0, 0, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 28[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 28[0m
 ********************test case 29********************
 checking squares(2, 0, 1, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 29[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 29[0m
 ********************test case 30********************
 checking squares(2, 0, 3, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 30[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 30[0m
 ********************test case 31********************
 checking squares(2, 1, 0, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 31[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 31[0m
 ********************test case 32********************
 checking squares(2, 1, 1, 1)
 Exit status of your code: 0
@@ -205,10 +205,8 @@ Exit status of your code: 0
 checking squares(2, 3, 0, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-unexpected line length in line 2
-line 2:   [31m## *[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 34[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 34[0m
 ********************test case 35********************
 checking squares(2, 3, 1, 1)
 Exit status of your code: 0
@@ -333,110 +331,104 @@ Exit status of your code: 0
 checking squares(5, 0, 0, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 55[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 55[0m
 ********************test case 56********************
 checking squares(5, 0, 1, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 56[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 56[0m
 ********************test case 57********************
 checking squares(5, 0, 3, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 57[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 57[0m
 ********************test case 58********************
 checking squares(5, 1, 0, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 58[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 58[0m
 ********************test case 59********************
 checking squares(5, 1, 1, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 59[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 59[0m
 ********************test case 60********************
 checking squares(5, 1, 3, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 60[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 60[0m
 ********************test case 61********************
 checking squares(5, 3, 0, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 61[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 61[0m
 ********************test case 62********************
 checking squares(5, 3, 1, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 62[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 62[0m
 ********************test case 63********************
 checking squares(5, 3, 3, 1)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 63[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 63[0m
 ********************test case 64********************
 checking squares(5, 0, 0, 2)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 64[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 64[0m
 ********************test case 65********************
 checking squares(5, 0, 1, 2)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 65[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 65[0m
 ********************test case 66********************
 checking squares(5, 0, 3, 2)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 66[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 66[0m
 ********************test case 67********************
 checking squares(5, 1, 0, 2)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-unexpected line length in line 2
-line 2:   [31m#***#[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 67[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 67[0m
 ********************test case 68********************
 checking squares(5, 1, 1, 2)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-unexpected line length in line 2
-line 2:   [31m#***#[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 68[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 68[0m
 ********************test case 69********************
 checking squares(5, 1, 3, 2)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-unexpected line length in line 4
-line 4:   [31m#***#[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 69[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 69[0m
 ********************test case 70********************
 checking squares(5, 3, 0, 2)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 70[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 70[0m
 ********************test case 71********************
 checking squares(5, 3, 1, 2)
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 71[0m
+[32mCorrect: your output matched the expected output.[0m
+[32mpassed test case 71[0m
 ********************test case 72********************
 checking squares(5, 3, 3, 2)
 Exit status of your code: 0
@@ -497,5 +489,5 @@ Exit status of your code: 0
 [32mValgrind was clean[0m
 [32mCorrect: your output matched the expected output.[0m
 [32mpassed test case 81[0m
-[31mfailed 22 out of 81 test cases[0m
-Overall Grade: C
+[32msuccessfully passed all 81 test cases[0m
+Overall Grade: A
