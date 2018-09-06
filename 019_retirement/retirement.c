@@ -15,7 +15,7 @@ double func(int startAge, double initial, retire_info_t info) {
            (startAge + i) / 12,
            (startAge + i) % 12,
            current_balance);
-    current_balance = current_balance * (1.0 + info.rate_of_return / 12.0);
+    current_balance += current_balance * info.rate_of_return;
     current_balance += info.contribution;
   }
   return current_balance;
@@ -36,10 +36,10 @@ int main(void) {
   retire_info_t retired;
   working.months = 489;
   working.contribution = 1000;
-  working.rate_of_return = 0.045;
+  working.rate_of_return = 0.045 / 12;
   retired.months = 384;
   retired.contribution = -4000;
-  retired.rate_of_return = 0.01;
+  retired.rate_of_return = 0.01 / 12;
   int startAge = 327;
   double initial = 21345;
   retirement(startAge, initial, working, retired);
