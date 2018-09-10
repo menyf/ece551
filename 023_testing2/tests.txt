@@ -1,0 +1,44 @@
+aaaaa bbbbb
+aaaaa bbbbc
+caaaa bbbbb
+aaaab bbbba
+aaabb bbbbc
+aaaab bbbaa
+abcde abcde
+abcdd abcde
+abcde abbcd
+a b
+ a
+a
+bbb aaaaa
+aaaaa bbbaa
+!!!!! ?????
+aa!!! bb???
+abcde edcba
+12345 12345
+()*&^ ()*&^
+!!!!a ?bbba
+aaaaaa bbbbbb
+abcdef abcdefg
+
+ a    b
+     a     b
+abcde abcdef
+abcdef abcd
+abcdef abcde
+abcde abcdef
+abcdef abcdef
+a abcde
+abcde a
+aa abcde
+abcde aa
+aa aa
+aaa aaa
+abcd abcde
+? ?
+abcde a
+!!!!! aaaaa
+a abcdef
+abcdef a
+cccccc ccccc
+abcde abcde abcde
