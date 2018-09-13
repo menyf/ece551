@@ -1,0 +1,9 @@
+Grading at 09/13/2018:01:07:18.669227
+For commit ID 2fe4ac3f967b1feb9acb29dc9eb08726919f807a
+Attempting to compile test.c
+gcc -o test -ggdb3 test.c
+compiled
+Your file matched the expected output
+Your output matched what we expected
+
+Overall Grade: PASSED
