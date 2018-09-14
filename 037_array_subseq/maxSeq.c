@@ -10,7 +10,7 @@ size_t maxSeq(int * array, size_t n) {
     }
     else {
       ans = 1;
-      i++;
+      // i++;
     }
     if (ans > mx)
       mx = ans;
