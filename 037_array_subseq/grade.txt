@@ -1,5 +1,5 @@
-Grading at 09/14/2018:16:53:06.834640
-For commit ID b235597eed832bcb7cfe399fdbf80d1afbc072ff
+Grading at 09/14/2018:16:54:41.699250
+For commit ID 00451b63e49bd7f87f61a55e506283ed3bad3891
 adding main
 [32mSuccessfully compiled ['maxSeq.c'].[0m
 ********************test case 1********************
@@ -12,8 +12,8 @@ Exit status of your code: 0
 array size 1
 Exit status of your code: 0
 [32mValgrind was clean[0m
-[32mCorrect: your output matched the expected output.[0m
-[32mpassed test case 2[0m
+[31mIncorrect: your output did not match the expected output.[0m
+[31mfailed test case 2[0m
 ********************test case 3********************
 array size 100
 Exit status of your code: 0
@@ -26,5 +26,5 @@ Exit status of your code: 0
 [32mValgrind was clean[0m
 [31mIncorrect: your output did not match the expected output.[0m
 [31mfailed test case 4[0m
-[31mfailed 2 out of 4 test cases[0m
+[31mfailed 3 out of 4 test cases[0m
 Overall Grade: F
