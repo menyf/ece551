@@ -1,6 +1,6 @@
 E
 E
-A
+D
 D
 D
 D
@@ -12,7 +12,7 @@ G
 B
 A
 D
-A
+C
 B
 C
 C
