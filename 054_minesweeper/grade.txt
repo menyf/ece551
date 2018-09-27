@@ -1,42 +1,8 @@
-Grading at 09/27/2018:23:04:20.547923
-For commit ID 5c564f9f46e5dcfe9be4e841c1241d0c1a1e0ef9
+Grading at 09/27/2018:23:18:26.212058
+For commit ID c0d7413803dc9638254b6e7ea10699df2b532749
 [32mSuccessfully compiled ['minesweeper.c'].[0m
 ********************test case 1********************
-Exit status of your code: 0
-[32mValgrind was clean[0m
-[32mCorrect: your output matched the expected output.[0m
-[32mpassed test case 1[0m
-********************test case 2********************
-Exit status of your code: 0
-[32mValgrind was clean[0m
-[32mCorrect: your output matched the expected output.[0m
-[32mpassed test case 2[0m
-********************test case 3********************
-Exit status of your code: 0
-[32mValgrind was clean[0m
-unexpected line length in line 21
-line 21:  [31m    0000000000[0m
-unexpected line length in line 25
-line 25:  [31m 1:           [0m
-unexpected line length in line 32
-line 32:  [31m 8:           [0m
-unexpected line length in line 37
-line 37:  [31mFound 1 of 100 mines[0m
-unexpected line length in line 60
-line 60:  [31m    0000000000[0m
-unexpected line length in line 64
-line 64:  [31m 1:           [0m
-unexpected line length in line 70
-line 70:  [31m 7:           [0m
-unexpected line length in line 76
-line 76:  [31mFound 1 of 100 mines[0m
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 3[0m
-********************test case 4********************
-Exit status of your code: 0
-[32mValgrind was clean[0m
-Your output has 39 lines, but we expected 99 lines.
-[31mIncorrect: your output did not match the expected output.[0m
-[31mfailed test case 4[0m
-[31mfailed 2 out of 4 test cases[0m
+Exit status of your code: 139
+[31mtest case 1 Error: Your program had segmentation fault[0m
+[31mCannot continue testing[0m
 Overall Grade: F
