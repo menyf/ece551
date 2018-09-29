@@ -1,0 +1,26 @@
+Grading at 09/29/2018:18:58:02.577110
+For commit ID 4b709c5f98412024406ae2394fd250bc21bfc64b
+running passed-in stu_imp ./count_values
+[32mSuccessfully compiled .[0m
+********************test case 1********************
+Exit status of your code: 1
+[32mValgrind was clean[0m
+[32mCorrect: your code indicates this is a failure case.[0m
+[32mpassed test case 1[0m
+********************test case 2********************
+Exit status of your code: 0
+[31mtest case 2 Error: valgrind was not clean,here are error suggestions:[0m
+[31m1 Memory leak error: detected direct lost[0m
+[31mfailed test case 2[0m
+********************test case 3********************
+Exit status of your code: 0
+[31mtest case 3 Error: valgrind was not clean,here are error suggestions:[0m
+[31m1 Memory leak error: detected direct lost[0m
+[31mfailed test case 3[0m
+********************test case 4********************
+Exit status of your code: 0
+[31mtest case 4 Error: valgrind was not clean,here are error suggestions:[0m
+[31m1 Memory leak error: detected direct lost[0m
+[31mfailed test case 4[0m
+[31mfailed 3 out of 4 test cases[0m
+Overall Grade: F
