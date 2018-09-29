@@ -37,9 +37,16 @@ void addCount(counts_t * c, const char * name) {
 }
 void printCounts(counts_t * c, FILE * outFile) {
   //WRITE ME
+  int unknown_num = 0;
   for (int i = 0; i < c->n; i++) {
+    if (strcmp(c->arr[i].str, "<unknown>") == 0) {
+      unknown_num = c->arr[i].count;
+      continue;
+    }
     fprintf(outFile, "%s: %d\n", c->arr[i].str, c->arr[i].count);
   }
+  if (unknown_num)
+    fprintf(outFile, "<unknown> : %d\n", unknown_num);
 }
 
 void freeCounts(counts_t * c) {
