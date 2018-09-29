@@ -22,7 +22,7 @@ counts_t * countFile(const char * filename, kvarray_t * kvPairs) {
     str[len - 1] = str[len - 1] == '\n' ? '\0' : str[len - 1];
     addCount(ret, lookupValue(kvPairs, str));
   }
-
+  free(str);
   if (fclose(f)) {
     fprintf(stderr, "Something wrong when close the file\n");
     exit(EXIT_FAILURE);
