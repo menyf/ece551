@@ -8,59 +8,35 @@
 #include "string.h"
 //include any other headers you need here...
 
-enum error_tag {
-  //  LEADING_COLON,
-  TAILING_COLON,
-  LESS_COLON,
-  MORE_COLON,
-  ADJACENT_COLONS,
-  WRONG_POPULATION_NUMBER,
-  WRONG_VOTE_NUMBER,
-  TOO_LONG_INPUT,
-  NEW_LINE_CONTAINED,
-  NO_ERROR
-};
-
-typedef enum error_tag error_t;
-
 void handle_error(error_t err, const char * line) {
-  /* if (err == LEADING_COLON) { */
-  /*   fprintf(stderr, "This line has at least one leading ':'(s) : %s\n", line); */
-  /*   exit(EXIT_FAILURE); */
-  /* } */
-  /* else */
+  if (err == NO_ERROR) {
+    return;
+  }
   if (err == TAILING_COLON) {
     fprintf(stderr, "This line has at least one tailing ':'(s) : %s\n", line);
-    exit(EXIT_FAILURE);
   }
   else if (err == LESS_COLON) {
     fprintf(stderr, "This line does not have enough ':'s : %s\n", line);
-    exit(EXIT_FAILURE);
   }
   else if (err == MORE_COLON) {
     fprintf(stderr, "This line has too many ':'s : %s\n", line);
-    exit(EXIT_FAILURE);
   }
   else if (err == ADJACENT_COLONS) {
     fprintf(stderr, "This line has adjacent ':'s : %s\n", line);
-    exit(EXIT_FAILURE);
   }
   else if (err == WRONG_POPULATION_NUMBER) {
     fprintf(stderr, "There is some problem with the population number : %s\n", line);
-    exit(EXIT_FAILURE);
   }
   else if (err == WRONG_VOTE_NUMBER) {
     fprintf(stderr, "There is some problem with the electoral vote number : %s\n", line);
-    exit(EXIT_FAILURE);
   }
   else if (err == TOO_LONG_INPUT) {
     fprintf(stderr, "This line is too long : %s\n", line);
-    exit(EXIT_FAILURE);
   }
   else if (err == NEW_LINE_CONTAINED) {
     fprintf(stderr, "This input include '\n' character: %s\n", line);
-    exit(EXIT_FAILURE);
   }
+  exit(EXIT_FAILURE);
 }
 
 int compare_two_numbers(const char * num, int len_num, const char * maxValue) {
@@ -73,16 +49,15 @@ int compare_two_numbers(const char * num, int len_num, const char * maxValue) {
     if (num[i] > maxValue[i]) {
       return 0;
     }
-    else if (num[i] < maxValue[i])
+    else if (num[i] < maxValue[i]) {
       return 1;
+    }
   }
-  return 1;  // equal
+  return 1;  // Equal to each other.
 }
 
 void parse_state_name(char * dest, const char * src, const int len) {
-  for (int i = 0; i < len; i++) {
-    dest[i] = src[i];
-  }
+  strncpy(dest, src, len);
   dest[len] = 0;
 }
 
@@ -102,67 +77,73 @@ unsigned parse_vote_number(const char * str, int l, int r) {
   return ans;
 }
 
-state_t parseLine(const char * line) {
-  //STEP 1: write me
-  state_t state;
-  int col1 = -1, col2 = -1, ed = strlen(line);
+error_t find_error(const char * line, int * col1, int * col2, int * ed) {
+  *col1 = -1;
+  *col2 = -1;
+  *ed = (int)strlen(line);
   error_t err = NO_ERROR;
-  /* if (line[0] == ':') { */
-  /*   err = LEADING_COLON; */
-  /* } */
-  /* else  */
-  if (line[ed - 1] == ':') {
+
+  if (line[*ed - 1] == ':') {
     err = TAILING_COLON;
   }
   else if (strchr(line, '\n') != NULL) {
     err = NEW_LINE_CONTAINED;
   }
-  for (int i = 0; i < ed && err == NO_ERROR; i++) {
+  for (int i = 0; i < *ed && err == NO_ERROR; i++) {
     if (i && line[i] == ':' && line[i - 1] == ':') {
       err = ADJACENT_COLONS;
     }
     if (line[i] == ':') {
-      if (col1 == -1) {
-        col1 = i;
-        if (col1 > MAX_STATE_NAME_LENGTH - 1) {
+      if (*col1 == -1) {
+        *col1 = i;
+        if (*col1 > MAX_STATE_NAME_LENGTH - 1) {
           err = TOO_LONG_INPUT;
         }
       }
-      else if (col2 == -1) {
-        col2 = i;
+      else if (*col2 == -1) {
+        *col2 = i;
       }
       else {
         err = MORE_COLON;
       }
     }
     else {
-      if (col1 != -1 && col2 == -1 && !isdigit(line[i])) {
+      if (*col1 != -1 && *col2 == -1 && !isdigit(line[i])) {
         err = WRONG_POPULATION_NUMBER;
       }
-      else if (col1 != -1 && col2 != -1 && !isdigit(line[i])) {
+      else if (*col1 != -1 && *col2 != -1 && !isdigit(line[i])) {
         err = WRONG_VOTE_NUMBER;
       }
     }
   }
   if (err == NO_ERROR) {
-    if (col2 == -1) {  // no or one ':' only.
+    if (*col2 == -1) {  // No colon or only one.
       err = LESS_COLON;
     }
-    else if (!compare_two_numbers(line + col1 + 1, col2 - (col1 + 1), "18446744073709551615")) {
+    else if (!compare_two_numbers(line + *col1 + 1, *col2 - (*col1 + 1), "18446744073709551615")) {
       err = WRONG_POPULATION_NUMBER;
     }
-    else if (!compare_two_numbers(line + col2 + 1, ed - (col2 + 1), "4294967295")) {
+    else if (!compare_two_numbers(line + *col2 + 1, *ed - (*col2 + 1), "4294967295")) {
       err = WRONG_VOTE_NUMBER;
     }
   }
+  return err;
+}
 
-  // error handling
+state_t parseLine(const char * line) {
+  //STEP 1: write me
+  state_t state;
+  int col1 = 0, col2 = 0, ed = 0;
+  error_t err = find_error(line, &col1, &col2, &ed);
+
+  // Error handling.
   handle_error(err, line);
 
-  // Excluded all possible errors
+  // Receiving data from line.
   parse_state_name(state.name, line, col1);
   state.population = parse_population(line, col1 + 1, col2);
   state.electoralVotes = parse_vote_number(line, col2 + 1, ed);
+
   return state;
 }
 
@@ -180,8 +161,8 @@ unsigned int countElectoralVotes(state_t * stateData, uint64_t * voteCounts, siz
 void printRecounts(state_t * stateData, uint64_t * voteCounts, size_t nStates) {
   //STEP 3: write me
   for (size_t i = 0; i < nStates; i++) {
-    uint64_t lower_bound = (long double)stateData[i].population * 0.495 + 0.5;
-    uint64_t upper_bound = (long double)stateData[i].population * 0.505 + 0.5;
+    uint64_t lower_bound = (long double)stateData[i].population * 0.495 + 1e-8;
+    uint64_t upper_bound = (long double)stateData[i].population * 0.505 + 1e-8;
     if (lower_bound <= voteCounts[i] && voteCounts[i] <= upper_bound) {
       printf("%s requires a recount (Candidate A has %.2f%% of the vote)\n",
              stateData[i].name,
