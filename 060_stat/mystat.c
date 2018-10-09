@@ -10,6 +10,7 @@
 
 // Required header files
 #include <string.h>
+#include <sys/sysmacros.h>
 // Step 1
 char * fetchType(mode_t st_mode);
 void printGeneralInfo(const char * filename, struct stat * sb);
@@ -31,6 +32,7 @@ int main(int argc, char ** argv) {
     exit(EXIT_FAILURE);
   }
 
+  // Step 5
   for (int i = 1; i < argc; i++) {
     if (lstat(argv[i], &sb) == -1) {
       perror("lstat");
@@ -74,12 +76,24 @@ void printGeneralInfo(const char * filename, struct stat * sb) {
          (unsigned long)sb->st_blocks,
          (long)sb->st_blksize,
          filetype);
-  printf("Device: %lxh/%lud\tInode: %-10lu  Links: %lu\n",
-         (long)sb->st_dev,
-         (long)sb->st_dev,
-         (long)sb->st_ino,
-         (long)sb->st_nlink);
 
+  // Step 6
+  if (S_ISCHR(sb->st_mode) || S_ISBLK(sb->st_mode)) {
+    printf("Device: %lxh/%lud\tInode: %-10lu  Links: %-5lu Device type: %d,%d\n",
+           (long)sb->st_dev,
+           (long)sb->st_dev,
+           (long)sb->st_ino,
+           (long)sb->st_nlink,
+           major(sb->st_rdev),
+           minor(sb->st_rdev));
+  }
+  else {
+    printf("Device: %lxh/%lud\tInode: %-10lu  Links: %lu\n",
+           (long)sb->st_dev,
+           (long)sb->st_dev,
+           (long)sb->st_ino,
+           (long)sb->st_nlink);
+  }
   free(filetype);
 }
 
