@@ -80,10 +80,10 @@ void printGeneralInfo(const char * filename, struct stat * sb) {
       exit(EXIT_FAILURE);
     }
     linktarget[len] = 0;
-    printf("  File: ‘%s’ -> ‘%s’\n", filename, linktarget);
+    printf("  File: %s -> %s\n", filename, linktarget);
   }
   else {
-    printf("  File: ‘%s’\n", filename);
+    printf("  File: %s\n", filename);
   }
 
   printf("  Size: %-10lu\tBlocks: %-10lu IO Block: %-6lu %s\n",
