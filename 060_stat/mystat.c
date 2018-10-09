@@ -122,7 +122,15 @@ char * proceedAccess(struct stat * sb) {
 
 void printAccessInfo(struct stat * sb) {
   char * access = proceedAccess(sb);
-  printf("Access: (%04o/%s)\n", sb->st_mode & ~S_IFMT, access);
+  struct passwd * _passwd = getpwuid(sb->st_uid);
+  struct group * _group = getgrgid(sb->st_gid);
+  printf("Access: (%04o/%s)  Uid: (%5d/%8s)   Gid: (%5d/%8s)\n",
+         sb->st_mode & ~S_IFMT,
+         access,
+         sb->st_uid,
+         _passwd->pw_name,
+         sb->st_gid,
+         _group->gr_name);
   free(access);
 }
 
