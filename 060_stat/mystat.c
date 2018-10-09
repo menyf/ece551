@@ -14,7 +14,7 @@
 char * fetchType(mode_t st_mode);
 void printGeneralInfo(const char * filename, struct stat * sb);
 
-// Step 2
+// Step 2 & 3
 void printAccessInfo(struct stat * sb);
 char * proceedAccess(struct stat * sb);
 
@@ -81,39 +81,30 @@ void printGeneralInfo(const char * filename, struct stat * sb) {
 char * proceedAccess(struct stat * sb) {
   char * str = malloc(11 * sizeof(*str));
 
-  switch (sb->st_mode & S_IFMT) {
-    case S_IFBLK:
-      str[0] = 'b';
-      break;
-    case S_IFCHR:
-      str[0] = 'c';
-      break;
-    case S_IFDIR:
-      str[0] = 'd';
-      break;
-    case S_IFIFO:
-      str[0] = 'p';
-      break;
-    case S_IFLNK:
-      str[0] = 'l';
-      break;
-    case S_IFREG:
-      str[0] = '-';
-      break;
-    case S_IFSOCK:
-      str[0] = 's';
-      break;
-    default:
-      str[0] = '?';
-      break;
+  const mode_t mask[] = {S_IFBLK,
+                         S_IFCHR,
+                         S_IFDIR,
+                         S_IFIFO,
+                         S_IFLNK,
+                         S_IFREG,
+                         S_IFSOCK,
+                         S_IRUSR,
+                         S_IWUSR,
+                         S_IXUSR,
+                         S_IRGRP,
+                         S_IWGRP,
+                         S_IXGRP,
+                         S_IROTH,
+                         S_IWOTH,
+                         S_IXOTH};
+  const char identifier[] = {'b', 'c', 'd', 'p', 'l', '-', 's', 'r', 'w', 'x'};
+  for (int i = 0; i < 7; i++) {
+    if ((sb->st_mode & S_IFMT) == mask[i]) {
+      str[0] = identifier[i];
+    }
   }
-
-  const mode_t mask[] = {
-      S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH};
-  const char identifier[] = "rwx";
-
-  for (int i = 0; i < 9; i++) {
-    str[i + 1] = sb->st_mode & mask[i] ? identifier[i % 3] : '-';
+  for (int i = 0, j = 7; i < 9; i++, j++) {
+    str[i + 1] = sb->st_mode & mask[j] ? identifier[i % 3 + 7] : '-';
   }
 
   str[10] = 0;
