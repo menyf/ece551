@@ -70,7 +70,21 @@ char * fetchType(mode_t st_mode) {
 void printGeneralInfo(const char * filename, struct stat * sb) {
   char * filetype = fetchType(sb->st_mode);
 
-  printf("  File: ‘%s’\n", filename);  // to be proceed.
+  // Step 7
+  if (S_ISLNK(sb->st_mode)) {
+    char linktarget[257];
+    ssize_t len = readlink(filename, linktarget, 256);
+    if (len == -1) {
+      perror("Error with readlink");
+      exit(EXIT_FAILURE);
+    }
+    linktarget[len] = 0;
+    printf("  File: ‘%s’ -> ‘%s’\n", filename, linktarget);
+  }
+  else {
+    printf("  File: ‘%s’\n", filename);
+  }
+
   printf("  Size: %-10lu\tBlocks: %-10lu IO Block: %-6lu %s\n",
          (unsigned long)sb->st_size,
          (unsigned long)sb->st_blocks,
