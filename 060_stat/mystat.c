@@ -18,6 +18,8 @@ void printGeneralInfo(const char * filename, struct stat * sb);
 void printAccessInfo(struct stat * sb);
 char * proceedAccess(struct stat * sb);
 
+// Step 4
+void printDate(struct stat * sb);
 //This function is for Step 4
 char * time2str(const time_t * when, long ns);
 
@@ -36,6 +38,7 @@ int main(int argc, char ** argv) {
 
   printGeneralInfo(argv[1], &sb);
   printAccessInfo(&sb);
+  printDate(&sb);
   return EXIT_SUCCESS;
 }
 
@@ -123,6 +126,19 @@ void printAccessInfo(struct stat * sb) {
          sb->st_gid,
          _group->gr_name);
   free(access);
+}
+
+void printDate(struct stat * sb) {
+  char * a_time = time2str(&(*sb).st_atime, sb->st_atim.tv_nsec);
+  char * m_time = time2str(&(*sb).st_mtime, sb->st_mtim.tv_nsec);
+  char * c_time = time2str(&(*sb).st_ctime, sb->st_ctim.tv_nsec);
+  printf("Access: %s\n", a_time);
+  printf("Modify: %s\n", m_time);
+  printf("Change: %s\n", c_time);
+  printf(" Birth: -\n");
+  free(a_time);
+  free(m_time);
+  free(c_time);
 }
 
 char * time2str(const time_t * when, long ns) {
