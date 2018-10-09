@@ -26,19 +26,21 @@ char * time2str(const time_t * when, long ns);
 int main(int argc, char ** argv) {
   struct stat sb;
 
-  if (argc != 2) {
-    fprintf(stderr, "Usage: %s <pathname>\n", argv[0]);
+  if (argc < 2) {
+    fprintf(stderr, "Usage: %s <filename1>  <filename2> ... \n", argv[0]);
     exit(EXIT_FAILURE);
   }
 
-  if (lstat(argv[1], &sb) == -1) {
-    perror("lstat");
-    exit(EXIT_FAILURE);
-  }
+  for (int i = 1; i < argc; i++) {
+    if (lstat(argv[i], &sb) == -1) {
+      perror("lstat");
+      exit(EXIT_FAILURE);
+    }
 
-  printGeneralInfo(argv[1], &sb);
-  printAccessInfo(&sb);
-  printDate(&sb);
+    printGeneralInfo(argv[i], &sb);
+    printAccessInfo(&sb);
+    printDate(&sb);
+  }
   return EXIT_SUCCESS;
 }
 
