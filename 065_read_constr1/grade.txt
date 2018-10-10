@@ -1,0 +1,7 @@
+Grading at 10/10/2018:19:27:24.235547
+For commit ID a6f69673d7a8338daddb957659937de019fc2dc7
+Attempting to compile:
+g++ -o test -Wall -Werror -pedantic -ggdb3 code.cpp
+Your Makefile did not produce a binary called 'code'.   Please correct that
+
+Overall Grade: FAILED
