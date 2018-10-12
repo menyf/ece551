@@ -1,7 +1,7 @@
 #include "IntMatrix.h"
 
 #include "iostream"
-IntMatrix::IntMatrix() : numRows(0), numColumns(0) {}
+IntMatrix::IntMatrix() : numRows(0), numColumns(0), rows(NULL) {}
 IntMatrix::IntMatrix(int r, int c) : numRows(r), numColumns(c) {
   rows = new IntArray *[numRows];
   for (int i = 0; i < numRows; i++) {
@@ -33,7 +33,7 @@ IntMatrix & IntMatrix::operator=(const IntMatrix & rhs) {
     for (int i = 0; i < numRows; i++) {
       delete rows[i];
     }
-    //    delete[] rows;
+    delete[] rows;
     rows = tmp;
     numRows = r;
     numColumns = c;
