@@ -1,0 +1,21 @@
+Grading at 10/12/2018:03:08:06.284021
+For commit ID 9c29b49e76fee27c5cb18aea915d575759e4d63f
+Attempting to compile:
+rm -f *.o  *~ intMatrixTest
+The code did not compile!
+In file included from 69_test_main.cpp:1:0:
+IntMatrix.h:4:10: fatal error: IntArray.h: No such file or directory
+ #include "IntArray.h"
+          ^~~~~~~~~~~~
+compilation terminated.
+In file included from IntMatrix.cpp:1:0:
+IntMatrix.h:4:10: fatal error: IntArray.h: No such file or directory
+ #include "IntArray.h"
+          ^~~~~~~~~~~~
+compilation terminated.
+IntArray.cpp:1:10: fatal error: IntArray.h: No such file or directory
+ #include "IntArray.h"
+          ^~~~~~~~~~~~
+compilation terminated.
+
+Overall Grade: F
