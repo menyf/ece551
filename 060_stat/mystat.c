@@ -29,7 +29,7 @@ int main(int argc, char ** argv) {
   struct stat sb;
 
   if (argc < 2) {
-    fprintf(stderr, "Usage: %s <filename1>  <filename2> ... \n", argv[0]);
+    fprintf(stderr, "stat: missing operand\nTry 'stat --help' for more information.\n");
     exit(EXIT_FAILURE);
   }
 
