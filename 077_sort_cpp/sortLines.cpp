@@ -23,7 +23,7 @@ int main(int argc, char ** argv) {
 
   std::istream & is = argc == 2 ? ifs : std::cin;
 
-  while (is >> tmp) {
+  while (std::getline(is, tmp)) {
     str_arr.push_back(tmp);
   }
 
