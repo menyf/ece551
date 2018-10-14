@@ -4,31 +4,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
-int main(int argc, char ** argv) {
-  if (argc > 2) {
-    std::cerr << "Wrong number of inputs" << std::endl;
-    exit(EXIT_FAILURE);
-  }
-
+void sortLines(std::istream & is) {
   std::string tmp;
   std::vector<std::string> str_arr;
-  std::ifstream ifs;
-
-  if (argc == 2) {
-    ifs.open(argv[1], std::ifstream::in);
-    if (!ifs) {
-      std::cerr << "Can not open file." << std::endl;
-    }
-  }
-
-  std::istream & is = argc == 2 ? ifs : std::cin;
-
   while (std::getline(is, tmp)) {
     str_arr.push_back(tmp);
-  }
-
-  if (argc == 2) {
-    ifs.close();
   }
 
   sort(str_arr.begin(), str_arr.end());
@@ -38,5 +18,20 @@ int main(int argc, char ** argv) {
     std::cout << *it << std::endl;
     it++;
   }
+}
+int main(int argc, char ** argv) {
+  if (argc == 1)
+    sortLines(std::cin);
+  std::ifstream ifs;
+  for (int i = 1; i < argc; i++) {
+    ifs.open(argv[i], std::ifstream::in);
+    if (!ifs) {
+      std::cerr << "Can not open file." << std::endl;
+    }
+
+    sortLines(ifs);
+    ifs.close();
+  }
+
   return EXIT_SUCCESS;
 }
