@@ -27,6 +27,7 @@ int main(int argc, char ** argv) {
     ifs.open(argv[i], std::ifstream::in);
     if (!ifs) {
       std::cerr << "Can not open file." << std::endl;
+      exit(EXIT_FAILURE);
     }
 
     sortLines(ifs);
