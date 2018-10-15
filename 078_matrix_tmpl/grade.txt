@@ -1,72 +1,46 @@
-Grading at 10/15/2018:01:40:11.175669
-For commit ID 4c9e207efa2a10d5851ab0074f479fdc58637ac9
+Grading at 10/15/2018:01:47:20.740582
+For commit ID 5f4fb62a86059ab19495ef514fd2bb63ba8edebe
 -----------------------------------------------
 testcase 1 : Testing with Matrix<int>
 ...compiling...
-In file included from test.cpp:1:0:
-Matrix.h: In instantiation of ‘Matrix<T>& Matrix<T>::operator=(const Matrix<T>&) [with T = int]’:
-test.cpp:57:12:   required from here
-Matrix.h:54:5: error: no matching function for call to ‘std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::swap(const Matrix<int>&)’
-     rows.swap(rhs);
-     ^~~~
-In file included from /usr/include/c++/7/vector:64:0,
-                 from Matrix.h:8,
-                 from test.cpp:1:
-/usr/include/c++/7/bits/stl_vector.h:1229:7: note: candidate: void std::vector<_Tp, _Alloc>::swap(std::vector<_Tp, _Alloc>&) [with _Tp = std::vector<int, std::allocator<int> >; _Alloc = std::allocator<std::vector<int, std::allocator<int> > >]
-       swap(vector& __x) _GLIBCXX_NOEXCEPT
-       ^~~~
-/usr/include/c++/7/bits/stl_vector.h:1229:7: note:   no known conversion for argument 1 from ‘const Matrix<int>’ to ‘std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&’
-The code did not compile.  This test failed.
+The code compiled.
+  - Valgrind showed memory leaks
+Valgrind reported errors (test failed).
 -----------------------------------------------
 testcase 2 : Testing with Matrix<std::string>
 ...compiling...
-In file included from test.cpp:1:0:
-Matrix.h: In instantiation of ‘Matrix<T>& Matrix<T>::operator=(const Matrix<T>&) [with T = std::__cxx11::basic_string<char>]’:
-test.cpp:57:12:   required from here
-Matrix.h:54:5: error: no matching function for call to ‘std::vector<std::vector<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char> > >, std::allocator<std::vector<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char> > > > >::swap(const Matrix<std::__cxx11::basic_string<char> >&)’
-     rows.swap(rhs);
-     ^~~~
-In file included from /usr/include/c++/7/vector:64:0,
-                 from Matrix.h:8,
-                 from test.cpp:1:
-/usr/include/c++/7/bits/stl_vector.h:1229:7: note: candidate: void std::vector<_Tp, _Alloc>::swap(std::vector<_Tp, _Alloc>&) [with _Tp = std::vector<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char> > >; _Alloc = std::allocator<std::vector<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char> > > >]
-       swap(vector& __x) _GLIBCXX_NOEXCEPT
-       ^~~~
-/usr/include/c++/7/bits/stl_vector.h:1229:7: note:   no known conversion for argument 1 from ‘const Matrix<std::__cxx11::basic_string<char> >’ to ‘std::vector<std::vector<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char> > >, std::allocator<std::vector<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char> > > > >&’
-The code did not compile.  This test failed.
+The code compiled.
+  - Valgrind showed memory leaks
+Valgrind reported errors (test failed).
 -----------------------------------------------
 testcase 3 : Testing with Matrix<(a custom class we wrote)>
 ...compiling...
-In file included from test.cpp:1:0:
-Matrix.h: In instantiation of ‘Matrix<T>& Matrix<T>::operator=(const Matrix<T>&) [with T = Tester]’:
-test.cpp:57:12:   required from here
-Matrix.h:54:5: error: no matching function for call to ‘std::vector<std::vector<Tester, std::allocator<Tester> >, std::allocator<std::vector<Tester, std::allocator<Tester> > > >::swap(const Matrix<Tester>&)’
-     rows.swap(rhs);
-     ^~~~
-In file included from /usr/include/c++/7/vector:64:0,
-                 from Matrix.h:8,
-                 from test.cpp:1:
-/usr/include/c++/7/bits/stl_vector.h:1229:7: note: candidate: void std::vector<_Tp, _Alloc>::swap(std::vector<_Tp, _Alloc>&) [with _Tp = std::vector<Tester, std::allocator<Tester> >; _Alloc = std::allocator<std::vector<Tester, std::allocator<Tester> > >]
-       swap(vector& __x) _GLIBCXX_NOEXCEPT
-       ^~~~
-/usr/include/c++/7/bits/stl_vector.h:1229:7: note:   no known conversion for argument 1 from ‘const Matrix<Tester>’ to ‘std::vector<std::vector<Tester, std::allocator<Tester> >, std::allocator<std::vector<Tester, std::allocator<Tester> > > >&’
-The code did not compile.  This test failed.
+The code compiled.
+  - Valgrind showed memory leaks
+Valgrind reported errors (test failed).
 --------------------------------------------
 Preparing to test assert fails...
 Compiling assertion failure tester...
-In file included from testAbort.cpp:1:0:
-Matrix.h: In instantiation of ‘Matrix<T>& Matrix<T>::operator=(const Matrix<T>&) [with T = int]’:
-testAbort.cpp:42:3:   required from here
-Matrix.h:54:5: error: no matching function for call to ‘std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::swap(const Matrix<int>&)’
-     rows.swap(rhs);
-     ^~~~
-In file included from /usr/include/c++/7/vector:64:0,
-                 from Matrix.h:8,
-                 from testAbort.cpp:1:
-/usr/include/c++/7/bits/stl_vector.h:1229:7: note: candidate: void std::vector<_Tp, _Alloc>::swap(std::vector<_Tp, _Alloc>&) [with _Tp = std::vector<int, std::allocator<int> >; _Alloc = std::allocator<std::vector<int, std::allocator<int> > >]
-       swap(vector& __x) _GLIBCXX_NOEXCEPT
-       ^~~~
-/usr/include/c++/7/bits/stl_vector.h:1229:7: note:   no known conversion for argument 1 from ‘const Matrix<int>’ to ‘std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&’
-This code did not compile. Skipping remaining tests.
+Compiled.
+-----------------------------------------------
+testcase 4 :  operator[]: row number too high
+  - Valgrind was clean (no errors, no memory leaks)
+Your file matched the expected output
+Testcase passed
+-----------------------------------------------
+testcase 5 :  operator[]: row number too low
+  - Valgrind was clean (no errors, no memory leaks)
+Your file matched the expected output
+Testcase passed
+-----------------------------------------------
+testcase 6 :  operator+: different number of rows
+  - Valgrind was clean (no errors, no memory leaks)
+Your file matched the expected output
+Testcase passed
+-----------------------------------------------
+testcase 7 :  operator+: different number of columns
+  - Valgrind was clean (no errors, no memory leaks)
+Your file matched the expected output
+Testcase passed
 
 Overall Grade: F
