@@ -50,8 +50,8 @@ Matrix<T>::Matrix(const Matrix & rhs) : rows(rhs.rows) {}
 template<typename T>
 Matrix<T> & Matrix<T>::operator=(const Matrix<T> & rhs) {
   if (this != &rhs) {
-    Matrix<T> tmp(rhs);
-    rows.swap(rhs);
+    std::vector<std::vector<T> > tmp(rhs.rows);
+    rows.swap(tmp);
   }
   return *this;
 }
