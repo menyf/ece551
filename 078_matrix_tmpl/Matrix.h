@@ -18,7 +18,7 @@ class Matrix
   Matrix();
   Matrix(int r, int c);
   Matrix(const Matrix<T> & rhs);
-  //  ~Matrix();
+  //~Matrix();
   Matrix<T> & operator=(const Matrix<T> & rhs);
   int getRows() const;
   int getColumns() const;
@@ -50,7 +50,8 @@ Matrix<T>::Matrix(const Matrix & rhs) : rows(rhs.rows) {}
 template<typename T>
 Matrix<T> & Matrix<T>::operator=(const Matrix<T> & rhs) {
   if (this != &rhs) {
-    rows = rhs.rows;
+    Matrix<T> tmp(rhs);
+    rows.swap(rhs);
   }
   return *this;
 }
