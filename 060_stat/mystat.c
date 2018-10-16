@@ -28,6 +28,7 @@ char * time2str(const time_t * when, long ns);
 int main(int argc, char ** argv) {
   struct stat sb;
 
+  // Argument checking.
   if (argc < 2) {
     fprintf(stderr, "stat: missing operand\nTry 'stat --help' for more information.\n");
     exit(EXIT_FAILURE);
@@ -35,6 +36,7 @@ int main(int argc, char ** argv) {
 
   // Step 5
   for (int i = 1; i < argc; i++) {
+    // error handing for calling lstat
     if (lstat(argv[i], &sb) == -1) {
       perror("lstat failed");
       exit(EXIT_FAILURE);
@@ -47,6 +49,7 @@ int main(int argc, char ** argv) {
   return EXIT_SUCCESS;
 }
 
+// Abstract a single function for type info
 char * fetchType(mode_t st_mode) {
   switch (st_mode & S_IFMT) {
     case S_IFBLK:
@@ -71,7 +74,7 @@ char * fetchType(mode_t st_mode) {
 void printGeneralInfo(const char * filename, struct stat * sb) {
   char * filetype = fetchType(sb->st_mode);
 
-  // Step 7
+  // Step 7, check link
   if (S_ISLNK(sb->st_mode)) {
     char linktarget[257];
     ssize_t len = readlink(filename, linktarget, 256);
@@ -92,7 +95,7 @@ void printGeneralInfo(const char * filename, struct stat * sb) {
          sb->st_blksize,
          filetype);
 
-  // Step 6
+  // Step 6: Out put device info according to device type
   if (S_ISCHR(sb->st_mode) || S_ISBLK(sb->st_mode)) {
     printf("Device: %lxh/%lud\tInode: %-10lu  Links: %-5lu Device type: %d,%d\n",
            sb->st_dev,
@@ -113,6 +116,7 @@ void printGeneralInfo(const char * filename, struct stat * sb) {
 }
 
 char * proceedAccess(struct stat * sb) {
+  // The ownership must be 10 characters.
   char * str = malloc(11 * sizeof(*str));
 
   const mode_t mask[] = {S_IFBLK,
@@ -132,11 +136,15 @@ char * proceedAccess(struct stat * sb) {
                          S_IWOTH,
                          S_IXOTH};
   const char identifier[] = {'b', 'c', 'd', 'p', 'l', '-', 's', 'r', 'w', 'x'};
+
+  // Find the first identifier.
   for (int i = 0; i < 7; i++) {
     if ((sb->st_mode & S_IFMT) == mask[i]) {
       str[0] = identifier[i];
     }
   }
+
+  // Find the following indentifiers with loop.
   for (int i = 0, j = 7; i < 9; i++, j++) {
     str[i + 1] = sb->st_mode & mask[j] ? identifier[i % 3 + 7] : '-';
   }
@@ -147,8 +155,8 @@ char * proceedAccess(struct stat * sb) {
 
 void printAccessInfo(struct stat * sb) {
   char * access = proceedAccess(sb);
-  struct passwd * _passwd = getpwuid(sb->st_uid);
-  struct group * _group = getgrgid(sb->st_gid);
+  struct passwd * _passwd = getpwuid(sb->st_uid);  // Library function call.
+  struct group * _group = getgrgid(sb->st_gid);    // Library function call.
   printf("Access: (%04o/%s)  Uid: (%5d/%8s)   Gid: (%5d/%8s)\n",
          sb->st_mode & ~S_IFMT,
          access,
