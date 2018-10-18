@@ -1,11 +1,11 @@
 C
-A 3?
-E
 A
+E
+A ?
 C
-C
+B
 C
 D
 C
-A
+B
 B
