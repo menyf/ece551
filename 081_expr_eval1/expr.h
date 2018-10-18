@@ -73,7 +73,7 @@ class MinusExpression : public OperationExpression
   virtual ~MinusExpression() {}
   virtual std::string toString() const {
     std::stringstream ss;
-    ss << "(" << lhs->toString() << " + " << rhs->toString() << ")";
+    ss << "(" << lhs->toString() << " - " << rhs->toString() << ")";
     std::string rt;
     ss >> rt;
     return rt;
@@ -89,7 +89,7 @@ class TimesExpression : public OperationExpression
   virtual ~TimesExpression() {}
   virtual std::string toString() const {
     std::stringstream ss;
-    ss << "(" << lhs->toString() << " + " << rhs->toString() << ")";
+    ss << "(" << lhs->toString() << " * " << rhs->toString() << ")";
     std::string rt;
     ss >> rt;
     return rt;
@@ -105,7 +105,7 @@ class DivExpression : public OperationExpression
   virtual ~DivExpression() {}
   virtual std::string toString() const {
     std::stringstream ss;
-    ss << "(" << lhs->toString() << " + " << rhs->toString() << ")";
+    ss << "(" << lhs->toString() << " / " << rhs->toString() << ")";
     std::string rt;
     ss >> rt;
     return rt;
