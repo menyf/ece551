@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -19,7 +20,16 @@ class NumExpression : public Expression
 
  public:
   NumExpression(long num) : val(num) {}
-  virtual std::string toString() const { return std::to_string(val); }
+  virtual std::string toString() const {
+    std::string s;
+    long tmp = val;
+    while (tmp) {
+      s += tmp % 10 + '0';
+      tmp /= 10;
+    }
+    reverse(s.begin(), s.end());
+    return s;
+  }
   virtual long evaluate() const { return val; }
   virtual ~NumExpression() {}
 };
