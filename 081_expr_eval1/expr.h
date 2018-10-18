@@ -58,9 +58,7 @@ class PlusExpression : public OperationExpression
   PlusExpression(Expression * lhs, Expression * rhs) : OperationExpression(lhs, rhs) {}
   virtual ~PlusExpression() {}
   virtual std::string toString() const {
-    std::stringstream ss;
-    ss << "(" << lhs->toString() << " + " << rhs->toString() << ")";
-    return ss.str();
+    return "(" + lhs->toString() + " + " + rhs->toString() + ")";
   }
   virtual long evaluate() const { return lhs->evaluate() + rhs->evaluate(); }
 };
@@ -72,13 +70,9 @@ class MinusExpression : public OperationExpression
   MinusExpression(Expression * lhs, Expression * rhs) : OperationExpression(lhs, rhs) {}
   virtual ~MinusExpression() {}
   virtual std::string toString() const {
-    std::stringstream ss;
-    ss << "(" << lhs->toString() << " - " << rhs->toString() << ")";
-    std::string rt;
-    ss >> rt;
-    return rt;
+    return "(" + lhs->toString() + " - " + rhs->toString() + ")";
   }
-  virtual long evaluate() const { return lhs->evaluate() + rhs->evaluate(); }
+  virtual long evaluate() const { return lhs->evaluate() - rhs->evaluate(); }
 };
 
 // TimesExpression ===============================
@@ -88,13 +82,9 @@ class TimesExpression : public OperationExpression
   TimesExpression(Expression * lhs, Expression * rhs) : OperationExpression(lhs, rhs) {}
   virtual ~TimesExpression() {}
   virtual std::string toString() const {
-    std::stringstream ss;
-    ss << "(" << lhs->toString() << " * " << rhs->toString() << ")";
-    std::string rt;
-    ss >> rt;
-    return rt;
+    return "(" + lhs->toString() + " * " + rhs->toString() + ")";
   }
-  virtual long evaluate() const { return lhs->evaluate() + rhs->evaluate(); }
+  virtual long evaluate() const { return lhs->evaluate() * rhs->evaluate(); }
 };
 
 // DivExpression ================================
@@ -104,11 +94,7 @@ class DivExpression : public OperationExpression
   DivExpression(Expression * lhs, Expression * rhs) : OperationExpression(lhs, rhs) {}
   virtual ~DivExpression() {}
   virtual std::string toString() const {
-    std::stringstream ss;
-    ss << "(" << lhs->toString() << " / " << rhs->toString() << ")";
-    std::string rt;
-    ss >> rt;
-    return rt;
+    return "(" + lhs->toString() + " / " + rhs->toString() + ")";
   }
-  virtual long evaluate() const { return lhs->evaluate() + rhs->evaluate(); }
+  virtual long evaluate() const { return lhs->evaluate() / rhs->evaluate(); }
 };
