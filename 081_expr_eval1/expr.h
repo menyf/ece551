@@ -20,13 +20,13 @@ class NumExpression : public Expression
 
  public:
   NumExpression(long num) : val(num) {}
+  virtual ~NumExpression() {}
   virtual std::string toString() const {
     std::stringstream ss;
     ss << val;
     return ss.str();
   }
   virtual long evaluate() const { return val; }
-  virtual ~NumExpression() {}
 };
 
 // OperationExpression ===========================
