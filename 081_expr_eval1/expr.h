@@ -20,21 +20,7 @@ class NumExpression : public Expression
 
  public:
   NumExpression(long num) : val(num) {}
-  virtual std::string toString() const {
-    if (val == 0)
-      return "0";
-    std::string s;
-    long tmp = val < 0 ? -val : val;
-    bool pos = val >= 0 ? true : false;
-    while (tmp) {
-      s += tmp % 10 + '0';
-      tmp /= 10;
-    }
-    reverse(s.begin(), s.end());
-    if (!pos)
-      s = "-" + s;
-    return s;
-  }
+  virtual std::string toString() const { return std::to_string(val); }
   virtual long evaluate() const { return val; }
   virtual ~NumExpression() {}
 };
@@ -55,7 +41,9 @@ class OperationExpression : public Expression
   virtual std::string toString() const = 0;
   virtual long evaluate() const = 0;
   std::string printString(char ch) const {
-    return "(" + lhs->toString() + " " + ch + " " + rhs->toString() + ")";
+    std::stringstream ss;
+    ss << "(" << lhs->toString() << " " << ch << " " << rhs->toString() << ")";
+    return ss.str();
   }
 };
 

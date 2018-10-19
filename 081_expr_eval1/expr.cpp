@@ -95,7 +95,7 @@ int main(void) {
     if (expr != NULL) {
       std::cout << "Parsed expression to: " << expr->toString() << "\n";
       std::cout << "Evaluated expression to: " << expr->evaluate() << "\n";
-      //      std::cout << "(evaluation will be done in the future)\n";
+      //   std::cout << "(evaluation will be done in the future)\n";
       delete expr;
     }
     else {
