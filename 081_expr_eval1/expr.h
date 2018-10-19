@@ -21,13 +21,18 @@ class NumExpression : public Expression
  public:
   NumExpression(long num) : val(num) {}
   virtual std::string toString() const {
+    if (val == 0)
+      return "0";
     std::string s;
-    long tmp = val;
+    long tmp = val < 0 ? -val : val;
+    bool pos = val >= 0 ? true : false;
     while (tmp) {
       s += tmp % 10 + '0';
       tmp /= 10;
     }
     reverse(s.begin(), s.end());
+    if (!pos)
+      s = "-" + s;
     return s;
   }
   virtual long evaluate() const { return val; }
@@ -49,6 +54,9 @@ class OperationExpression : public Expression
   }
   virtual std::string toString() const = 0;
   virtual long evaluate() const = 0;
+  std::string printString(char ch) const {
+    return "(" + lhs->toString() + " " + ch + " " + rhs->toString() + ")";
+  }
 };
 
 // PlusExpression =================================
@@ -57,9 +65,7 @@ class PlusExpression : public OperationExpression
  public:
   PlusExpression(Expression * lhs, Expression * rhs) : OperationExpression(lhs, rhs) {}
   virtual ~PlusExpression() {}
-  virtual std::string toString() const {
-    return "(" + lhs->toString() + " + " + rhs->toString() + ")";
-  }
+  virtual std::string toString() const { return printString('+'); }
   virtual long evaluate() const { return lhs->evaluate() + rhs->evaluate(); }
 };
 
@@ -69,9 +75,7 @@ class MinusExpression : public OperationExpression
  public:
   MinusExpression(Expression * lhs, Expression * rhs) : OperationExpression(lhs, rhs) {}
   virtual ~MinusExpression() {}
-  virtual std::string toString() const {
-    return "(" + lhs->toString() + " - " + rhs->toString() + ")";
-  }
+  virtual std::string toString() const { return printString('-'); }
   virtual long evaluate() const { return lhs->evaluate() - rhs->evaluate(); }
 };
 
@@ -81,9 +85,7 @@ class TimesExpression : public OperationExpression
  public:
   TimesExpression(Expression * lhs, Expression * rhs) : OperationExpression(lhs, rhs) {}
   virtual ~TimesExpression() {}
-  virtual std::string toString() const {
-    return "(" + lhs->toString() + " * " + rhs->toString() + ")";
-  }
+  virtual std::string toString() const { return printString('*'); }
   virtual long evaluate() const { return lhs->evaluate() * rhs->evaluate(); }
 };
 
@@ -93,8 +95,6 @@ class DivExpression : public OperationExpression
  public:
   DivExpression(Expression * lhs, Expression * rhs) : OperationExpression(lhs, rhs) {}
   virtual ~DivExpression() {}
-  virtual std::string toString() const {
-    return "(" + lhs->toString() + " / " + rhs->toString() + ")";
-  }
+  virtual std::string toString() const { return printString('/'); }
   virtual long evaluate() const { return lhs->evaluate() / rhs->evaluate(); }
 };
