@@ -20,7 +20,7 @@ class NumExpression : public Expression
 
  public:
   NumExpression(long num) : val(num) {}
-  virtual std::string toString() const { return std::to_string(val); }
+  std::string toString() const { return std::to_string(val); }
   virtual long evaluate() const { return val; }
   virtual ~NumExpression() {}
 };
