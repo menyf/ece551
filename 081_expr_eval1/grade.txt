@@ -1,15 +1,15 @@
-Grading at 10/19/2018:00:43:27.543432
-For commit ID 1b74e023d94bd3db366576302db60645545925c0
+Grading at 10/19/2018:00:48:57.100299
+For commit ID 42875cbec510f361f211ba628f1261c106421e84
 Compiling code
 In file included from expr.cpp:1:0:
 expr.h: In member function ‘virtual std::__cxx11::string NumExpression::toString() const’:
-expr.h:23:54: error: ‘to_string’ is not a member of ‘std’
-   virtual std::string toString() const { return std::to_string(val); }
-                                                      ^~~~~~~~~
-expr.h:23:54: note: suggested alternative: ‘__sso_string’
-   virtual std::string toString() const { return std::to_string(val); }
-                                                      ^~~~~~~~~
-                                                      __sso_string
+expr.h:23:46: error: ‘to_string’ is not a member of ‘std’
+   std::string toString() const { return std::to_string(val); }
+                                              ^~~~~~~~~
+expr.h:23:46: note: suggested alternative: ‘__sso_string’
+   std::string toString() const { return std::to_string(val); }
+                                              ^~~~~~~~~
+                                              __sso_string
 The code did not compile.
 
 Overall Grade: F
