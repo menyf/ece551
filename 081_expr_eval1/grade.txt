@@ -1,15 +1,32 @@
-Grading at 10/19/2018:00:48:57.100299
-For commit ID 42875cbec510f361f211ba628f1261c106421e84
+Grading at 10/19/2018:00:51:51.131158
+For commit ID 7f62efd869542f5c9702ff1f5036818e1b32bf3d
 Compiling code
-In file included from expr.cpp:1:0:
-expr.h: In member function ‘virtual std::__cxx11::string NumExpression::toString() const’:
-expr.h:23:46: error: ‘to_string’ is not a member of ‘std’
-   std::string toString() const { return std::to_string(val); }
-                                              ^~~~~~~~~
-expr.h:23:46: note: suggested alternative: ‘__sso_string’
-   std::string toString() const { return std::to_string(val); }
-                                              ^~~~~~~~~
-                                              __sso_string
-The code did not compile.
+The code compiled.
+---------------------
+Test case 1
+  - Valgrind was clean (no errors, no memory leaks)
+Line_3_did_not_match
+Line_6_did_not_match
+Line_9_did_not_match
+Line_12_did_not_match
+Your file did not match the expected ouput
+Testcase failed 
+---------------------
+Test case 2
+  - Valgrind was clean (no errors, no memory leaks)
+Line_5_did_not_match
+Line_12_did_not_match
+Line_15_did_not_match
+Line_20_did_not_match
+Line_23_did_not_match
+Line_26_did_not_match
+Line_29_did_not_match
+Your file did not match the expected ouput
+Testcase failed 
+---------------------
+Test case 3
+  - Valgrind was clean (no errors, no memory leaks)
+Your file matched the expected output
+Testcase passed 
 
 Overall Grade: F
