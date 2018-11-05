@@ -38,6 +38,13 @@ class BstMap : public Map<K, V>
  public:
   BstMap() : root(NULL) {}
   BstMap(const BstMap<K, V> & rhs) : root(NULL) { copy(rhs.root); }
+  BstMap & operator=(const BstMap<K, V> & rhs) {
+    if (this != &rhs) {
+      BstMap temp(rhs);
+      swap(temp.root, root);
+    }
+    return *this;
+  }
   virtual void add(const K & key, const V & value) {
     if (!root) {
       root = new Node(NULL, NULL, key, value);
