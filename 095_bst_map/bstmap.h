@@ -13,11 +13,8 @@ class BstMap : public Map<K, V>
     K key;
     V val;
 
-    Node(Node * left = NULL, Node * right = NULL, K key = 0, V val = 0) :
-        left(left),
-        right(right),
-        key(key),
-        val(val) {}
+    Node() : left(NULL), right(NULL), key(K()), val(V()) {}
+    Node(Node * left, Node * right, K key, V val) : left(left), right(right), key(key), val(val) {}
   };
 
   Node * root;
@@ -37,7 +34,7 @@ class BstMap : public Map<K, V>
       root = new Node(NULL, NULL, key, value);
       return;
     }
-    Node ** curr = &root;
+    Node ** curr = &(this->root);
     while (*curr != NULL) {
       if ((*curr)->key == key) {
         (*curr)->val = value;
@@ -56,7 +53,7 @@ class BstMap : public Map<K, V>
   virtual const V & lookup(const K & key) const throw(std::invalid_argument) {
     if (!root)
       throw std::invalid_argument("invalid argument");
-    Node ** curr = &root;
+    Node * const * curr = &(this->root);
     while (*curr != NULL) {
       if ((*curr)->key == key) {
         return (*curr)->val;
