@@ -1,6 +1,7 @@
 #ifndef __BSTMAP_H__
 #define __BSTMAP_H__
 
+#include "algorithm"
 #include "map.h"
 
 template<typename K, typename V>
@@ -41,7 +42,7 @@ class BstMap : public Map<K, V>
   BstMap & operator=(const BstMap<K, V> & rhs) {
     if (this != &rhs) {
       BstMap temp(rhs);
-      swap(temp.root, root);
+      std::swap(temp.root, root);
     }
     return *this;
   }
