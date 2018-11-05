@@ -6,7 +6,7 @@
 template<typename K, typename V>
 class BstMap : public Map<K, V>
 {
- private:
+ public:
   struct Node {
     Node * left;
     Node * right;
@@ -27,8 +27,17 @@ class BstMap : public Map<K, V>
     delete curr;
   }
 
+  void copy(Node * curr) {
+    if (curr == NULL)
+      return;
+    add(curr->key, curr->val);
+    copy(curr->left);
+    copy(curr->right);
+  }
+
  public:
   BstMap() : root(NULL) {}
+  BstMap(const BstMap<K, V> & rhs) : root(NULL) { copy(rhs.root); }
   virtual void add(const K & key, const V & value) {
     if (!root) {
       root = new Node(NULL, NULL, key, value);
@@ -73,10 +82,12 @@ class BstMap : public Map<K, V>
 
     // NOT FOUND
     if (curr->key > key) {
-      return curr->left = remove(curr->left, key);
+      curr->left = remove(curr->left, key);
+      return curr;
     }
     else if (curr->key < key) {
-      return curr->right = remove(curr->right, key);
+      curr->right = remove(curr->right, key);
+      return curr;
     }
 
     // FOUND
