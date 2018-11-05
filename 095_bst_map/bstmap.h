@@ -7,9 +7,7 @@ template<typename K, typename V>
 class BstMap : public Map<K, V>
 {
  private:
-  class Node
-  {
-   public:
+  struct Node {
     Node * left;
     Node * right;
     K key;
@@ -24,8 +22,6 @@ class BstMap : public Map<K, V>
 
   Node * root;
 
-  BstMap() : root(NULL) {}
-
   void destroy(Node * curr) {
     if (curr == NULL)
       return;
@@ -35,6 +31,7 @@ class BstMap : public Map<K, V>
   }
 
  public:
+  BstMap() : root(NULL) {}
   virtual void add(const K & key, const V & value) {
     if (!root) {
       root = new Node(NULL, NULL, key, value);
