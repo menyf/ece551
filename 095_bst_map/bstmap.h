@@ -15,7 +15,7 @@ class BstMap : public Map<K, V>
     V val;
 
     Node() : left(NULL), right(NULL), key(K()), val(V()) {}
-    Node(Node * left, Node * right, K key, V val) : left(left), right(right), key(key), val(val) {}
+    Node(K key, V val) : left(NULL), right(NULL), key(key), val(val) {}
   };
 
   Node * root;
@@ -47,10 +47,6 @@ class BstMap : public Map<K, V>
     return *this;
   }
   virtual void add(const K & key, const V & value) {
-    if (!root) {
-      root = new Node(NULL, NULL, key, value);
-      return;
-    }
     Node ** curr = &(this->root);
     while (*curr != NULL) {
       if ((*curr)->key == key) {
@@ -64,12 +60,10 @@ class BstMap : public Map<K, V>
         curr = &((*curr)->left);
       }
     }
-    *curr = new Node(NULL, NULL, key, value);
+    *curr = new Node(key, value);
   }
 
   virtual const V & lookup(const K & key) const throw(std::invalid_argument) {
-    if (!root)
-      throw std::invalid_argument("invalid argument");
     Node * const * curr = &(this->root);
     while (*curr != NULL) {
       if ((*curr)->key == key) {
@@ -121,7 +115,7 @@ class BstMap : public Map<K, V>
     curr->key = temp->key;
     curr->val = temp->val;
 
-    // remove the one recursively.
+    // Remove the one recursively.
     curr->left = remove(curr->left, curr->key);
     return curr;
   }
