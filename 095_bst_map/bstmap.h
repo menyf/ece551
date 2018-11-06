@@ -7,14 +7,13 @@
 template<typename K, typename V>
 class BstMap : public Map<K, V>
 {
- public:
+ private:
   struct Node {
     Node * left;
     Node * right;
     K key;
     V val;
 
-    Node() : left(NULL), right(NULL), key(K()), val(V()) {}
     Node(K key, V val) : left(NULL), right(NULL), key(key), val(val) {}
   };
 
@@ -36,6 +35,19 @@ class BstMap : public Map<K, V>
     copy(curr->right);
   }
 
+  Node ** search(const K & key) {
+    Node ** curr = &(this->root);
+    while (*curr != NULL) {
+      if ((*curr)->key == key)
+        return curr;
+      else if (key > (*curr)->key)
+        curr = &((*curr)->right);
+      else
+        curr = &((*curr)->left);
+    }
+    return curr;
+  }
+
  public:
   BstMap() : root(NULL) {}
   BstMap(const BstMap<K, V> & rhs) : root(NULL) { copy(rhs.root); }
@@ -46,38 +58,23 @@ class BstMap : public Map<K, V>
     }
     return *this;
   }
+
   virtual void add(const K & key, const V & value) {
-    Node ** curr = &(this->root);
-    while (*curr != NULL) {
-      if ((*curr)->key == key) {
-        (*curr)->val = value;
-        return;
-      }
-      else if (key > (*curr)->key) {
-        curr = &((*curr)->right);
-      }
-      else {
-        curr = &((*curr)->left);
-      }
-    }
-    *curr = new Node(key, value);
+    Node ** curr = search(key);
+    if (*curr)
+      (*curr)->val = value;
+    else
+      *curr = new Node(key, value);
   }
 
   virtual const V & lookup(const K & key) const throw(std::invalid_argument) {
-    Node * const * curr = &(this->root);
-    while (*curr != NULL) {
-      if ((*curr)->key == key) {
-        return (*curr)->val;
-      }
-      else if (key > (*curr)->key) {
-        curr = &((*curr)->right);
-      }
-      else {
-        curr = &((*curr)->left);
-      }
-    }
-    throw std::invalid_argument("invalid argument");
+    Node ** curr = search(key);
+    if (*curr)
+      return (*curr)->val;
+    else
+      throw std::invalid_argument("invalid argument");
   }
+
   Node * remove(Node * curr, const K & key) {
     if (curr == NULL)
       return NULL;
