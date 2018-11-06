@@ -1,67 +1,121 @@
-Grading at 11/06/2018:18:32:31.440257
-For commit ID 4c70036410770372f631180988f71f14213db63e
+Grading at 11/06/2018:18:40:54.331306
+For commit ID 51bf65151828c7ab1e4f4077376170e8e45805b6
 -----------------------------------------------
 testcase 1 : Testing with BstMap<int,int>
 ...compiling...
-The code compiled.
-  - Valgrind was clean (no errors, no memory leaks)
-Your file matched the expected output
-Testcase passed 
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = int; V = int]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:71:26: error: passing ‘const BstMap<int, int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** curr = search(key);
+                    ~~~~~~^~~~~
+bstmap.h:38:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::search(const K&) [with K = int; V = int]’
+   Node ** search(const K & key) {
+           ^~~~~~
+The code did not compile.  This test failed.
 -----------------------------------------------
 testcase 2 : Testing with BstMap<int,std::string>
 ...compiling...
-The code compiled.
-  - Valgrind was clean (no errors, no memory leaks)
-Your file matched the expected output
-Testcase passed 
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = int; V = std::__cxx11::basic_string<char>]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:71:26: error: passing ‘const BstMap<int, std::__cxx11::basic_string<char> >’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** curr = search(key);
+                    ~~~~~~^~~~~
+bstmap.h:38:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::search(const K&) [with K = int; V = std::__cxx11::basic_string<char>]’
+   Node ** search(const K & key) {
+           ^~~~~~
+The code did not compile.  This test failed.
 -----------------------------------------------
 testcase 3 : Testing with BstMap<int,(a custom class we wrote)>
 ...compiling...
-The code compiled.
-  - Valgrind was clean (no errors, no memory leaks)
-Your file matched the expected output
-Testcase passed 
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = int; V = Tester]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:71:26: error: passing ‘const BstMap<int, Tester>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** curr = search(key);
+                    ~~~~~~^~~~~
+bstmap.h:38:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::search(const K&) [with K = int; V = Tester]’
+   Node ** search(const K & key) {
+           ^~~~~~
+The code did not compile.  This test failed.
 -----------------------------------------------
 testcase 4 : Testing with BstMap<std::string,int>
 ...compiling...
-The code compiled.
-  - Valgrind was clean (no errors, no memory leaks)
-Your file matched the expected output
-Testcase passed 
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = std::__cxx11::basic_string<char>; V = int]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:71:26: error: passing ‘const BstMap<std::__cxx11::basic_string<char>, int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** curr = search(key);
+                    ~~~~~~^~~~~
+bstmap.h:38:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::search(const K&) [with K = std::__cxx11::basic_string<char>; V = int]’
+   Node ** search(const K & key) {
+           ^~~~~~
+The code did not compile.  This test failed.
 -----------------------------------------------
 testcase 5 : Testing with BstMap<std::string,std::string>
 ...compiling...
-The code compiled.
-  - Valgrind was clean (no errors, no memory leaks)
-Your file matched the expected output
-Testcase passed 
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = std::__cxx11::basic_string<char>; V = std::__cxx11::basic_string<char>]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:71:26: error: passing ‘const BstMap<std::__cxx11::basic_string<char>, std::__cxx11::basic_string<char> >’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** curr = search(key);
+                    ~~~~~~^~~~~
+bstmap.h:38:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::search(const K&) [with K = std::__cxx11::basic_string<char>; V = std::__cxx11::basic_string<char>]’
+   Node ** search(const K & key) {
+           ^~~~~~
+The code did not compile.  This test failed.
 -----------------------------------------------
 testcase 6 : Testing with BstMap<std::string,(a custom class we wrote)>
 ...compiling...
-The code compiled.
-  - Valgrind was clean (no errors, no memory leaks)
-Your file matched the expected output
-Testcase passed 
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = std::__cxx11::basic_string<char>; V = Tester]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:71:26: error: passing ‘const BstMap<std::__cxx11::basic_string<char>, Tester>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** curr = search(key);
+                    ~~~~~~^~~~~
+bstmap.h:38:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::search(const K&) [with K = std::__cxx11::basic_string<char>; V = Tester]’
+   Node ** search(const K & key) {
+           ^~~~~~
+The code did not compile.  This test failed.
 -----------------------------------------------
 testcase 7 : Testing with BstMap<(a custom class we wrote),int>
 ...compiling...
-The code compiled.
-  - Valgrind was clean (no errors, no memory leaks)
-Your file matched the expected output
-Testcase passed 
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = Tester; V = int]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:71:26: error: passing ‘const BstMap<Tester, int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** curr = search(key);
+                    ~~~~~~^~~~~
+bstmap.h:38:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::search(const K&) [with K = Tester; V = int]’
+   Node ** search(const K & key) {
+           ^~~~~~
+The code did not compile.  This test failed.
 -----------------------------------------------
 testcase 8 : Testing with BstMap<(a custom class we wrote),std::string>
 ...compiling...
-The code compiled.
-  - Valgrind was clean (no errors, no memory leaks)
-Your file matched the expected output
-Testcase passed 
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = Tester; V = std::__cxx11::basic_string<char>]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:71:26: error: passing ‘const BstMap<Tester, std::__cxx11::basic_string<char> >’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** curr = search(key);
+                    ~~~~~~^~~~~
+bstmap.h:38:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::search(const K&) [with K = Tester; V = std::__cxx11::basic_string<char>]’
+   Node ** search(const K & key) {
+           ^~~~~~
+The code did not compile.  This test failed.
 -----------------------------------------------
 testcase 9 : Testing with BstMap<(a custom class we wrote),(a custom class we wrote)>
 ...compiling...
-The code compiled.
-  - Valgrind was clean (no errors, no memory leaks)
-Your file matched the expected output
-Testcase passed 
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = Tester; V = Tester]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:71:26: error: passing ‘const BstMap<Tester, Tester>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** curr = search(key);
+                    ~~~~~~^~~~~
+bstmap.h:38:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::search(const K&) [with K = Tester; V = Tester]’
+   Node ** search(const K & key) {
+           ^~~~~~
+The code did not compile.  This test failed.
 
-Overall Grade: A
+Overall Grade: F
