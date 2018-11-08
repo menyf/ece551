@@ -12,46 +12,29 @@
 
 #include <fstream>
 
-#include "functional"
 #include "iostream"
 #include "sstream"
 #include "string"
-//#include "unordered_map"
-#include "vector"
+#include "unordered_map"
 
 class Dedup
 {
  private:
-  std::vector<std::string> hash_table;
-  //  std::unordered_map<std::string, std::string> dict;
+  std::unordered_map<std::string, std::string> dict;
   std::stringstream out;
-  std::hash<std::string> str_hash;
-  size_t mod;
 
  public:
-  Dedup() {
-    out << "#!/bin/bash\n\n";
-    mod = 46093;
-    hash_table.resize(mod);
-  }
+  Dedup() { out << "#!/bin/bash\n\n"; }
 
-  Dedup(const Dedup & rhs) :
-      /*dict(rhs.dict),*/ out(rhs.out.str()),
-      str_hash(rhs.str_hash),
-      mod(rhs.mod) {
-    hash_table.resize(mod);
-  }
+  Dedup(const Dedup & rhs) : dict(rhs.dict), out(rhs.out.str()) {}
 
   virtual ~Dedup() {}
 
   Dedup & operator=(const Dedup & rhs) {
     if (this != &rhs) {
       Dedup temp(rhs);
-      //      std::swap(dict, temp.dict);
-      std::swap(hash_table, temp.hash_table);
+      std::swap(dict, temp.dict);
       std::swap(out, temp.out);
-      std::swap(str_hash, temp.str_hash);
-      std::swap(mod, temp.mod);
     }
     return *this;
   }
@@ -80,22 +63,13 @@ class Dedup
 
   void remove_file(const char * p) {
     std::string content = read(p);
-    size_t hashval = str_hash(content) % mod;
-    if (hash_table[hashval] != "") {
-      out << "#Removing " << p << " (duplicate of " << hash_table[hashval] << ").\n";
+    if (dict.count(content) && dict[content] != p) {  // duplicated
+      out << "#Removing " << p << " (duplicate of " << dict[content] << ").\n";
       out << "rm " << p << "\n\n";
     }
     else {
-      hash_table[hashval] = p;
+      dict[content] = p;
     }
-
-    // if (dict.count(content) && dict[content] != p) {  // duplicated
-    //   out << "#Removing " << p << " (duplicate of " << dict[content] << ").\n";
-    //   out << "rm " << p << "\n\n";
-    // }
-    // else {
-    //   dict[content] = p;
-    // }
   }
 
   std::string read(const char * file) {
