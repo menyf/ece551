@@ -31,7 +31,7 @@ class Dedup
  public:
   Dedup() {
     out << "#!/bin/bash\n\n";
-    mod = 46093;
+    mod = 504937;
     hash_table.resize(mod, "");
   }
 
