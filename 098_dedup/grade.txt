@@ -1,0 +1,182 @@
+Grading at 11/08/2018:00:39:50.650507
+For commit ID a90ae5e89d914843dac9f587aea4fe46134a947c
+Running make
+g++ -o dedup test.cpp
+Found executable dedup
+-----------------------------------------------
+testcase 1 : ./dedup /var/dedup/d000
+  - Valgrind reported errors
+Valgrind reported errors (test failed).
+==91945== Memcheck, a memory error detector
+==91945== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==91945== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==91945== Command: ./dedup /var/dedup/d000
+==91945== Parent PID: 91943
+==91945== 
+==91945== 
+==91945== HEAP SUMMARY:
+==91945==     in use at exit: 98,448 bytes in 3 blocks
+==91945==   total heap usage: 7,940 allocs, 7,937 frees, 36,251,519 bytes allocated
+==91945== 
+==91945== 32,816 bytes in 1 blocks are definitely lost in loss record 1 of 3
+==91945==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91945==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==91945==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==91945==    by 0x54C19B5: opendir (opendir.c:190)
+==91945==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91945==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91945== 
+==91945== 32,816 bytes in 1 blocks are definitely lost in loss record 2 of 3
+==91945==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91945==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==91945==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==91945==    by 0x54C19B5: opendir (opendir.c:190)
+==91945==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91945==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91945==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91945== 
+==91945== 32,816 bytes in 1 blocks are definitely lost in loss record 3 of 3
+==91945==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91945==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==91945==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==91945==    by 0x54C19B5: opendir (opendir.c:190)
+==91945==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91945==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91945==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91945==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91945== 
+==91945== LEAK SUMMARY:
+==91945==    definitely lost: 98,448 bytes in 3 blocks
+==91945==    indirectly lost: 0 bytes in 0 blocks
+==91945==      possibly lost: 0 bytes in 0 blocks
+==91945==    still reachable: 0 bytes in 0 blocks
+==91945==         suppressed: 0 bytes in 0 blocks
+==91945== 
+==91945== For counts of detected and suppressed errors, rerun with: -v
+==91945== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
+-----------------------------------------------
+testcase 2 : ./dedup /var/dedup/d001
+  - Valgrind reported errors
+Valgrind reported errors (test failed).
+==91979== Memcheck, a memory error detector
+==91979== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==91979== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==91979== Command: ./dedup /var/dedup/d001
+==91979== Parent PID: 91977
+==91979== 
+==91979== 
+==91979== HEAP SUMMARY:
+==91979==     in use at exit: 131,264 bytes in 4 blocks
+==91979==   total heap usage: 119,428 allocs, 119,424 frees, 212,283,666 bytes allocated
+==91979== 
+==91979== 32,816 bytes in 1 blocks are definitely lost in loss record 1 of 4
+==91979==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91979==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==91979==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==91979==    by 0x54C19B5: opendir (opendir.c:190)
+==91979==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979== 
+==91979== 32,816 bytes in 1 blocks are definitely lost in loss record 2 of 4
+==91979==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91979==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==91979==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==91979==    by 0x54C19B5: opendir (opendir.c:190)
+==91979==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979== 
+==91979== 32,816 bytes in 1 blocks are definitely lost in loss record 3 of 4
+==91979==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91979==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==91979==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==91979==    by 0x54C19B5: opendir (opendir.c:190)
+==91979==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979== 
+==91979== 32,816 bytes in 1 blocks are definitely lost in loss record 4 of 4
+==91979==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91979==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==91979==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==91979==    by 0x54C19B5: opendir (opendir.c:190)
+==91979==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==91979== 
+==91979== LEAK SUMMARY:
+==91979==    definitely lost: 131,264 bytes in 4 blocks
+==91979==    indirectly lost: 0 bytes in 0 blocks
+==91979==      possibly lost: 0 bytes in 0 blocks
+==91979==    still reachable: 0 bytes in 0 blocks
+==91979==         suppressed: 0 bytes in 0 blocks
+==91979== 
+==91979== For counts of detected and suppressed errors, rerun with: -v
+==91979== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
+-----------------------------------------------
+testcase 3 : ./dedup /var/dedup/*
+  - Valgrind reported errors
+Valgrind reported errors (test failed).
+==92147== Memcheck, a memory error detector
+==92147== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==92147== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==92147== Command: ./dedup /var/dedup/d000 /var/dedup/d001 /var/dedup/d002 /var/dedup/d003 /var/dedup/d004 /var/dedup/d005 /var/dedup/d006 /var/dedup/d007 /var/dedup/d008 /var/dedup/d009
+==92147== Parent PID: 92145
+==92147== 
+==92147== 
+==92147== HEAP SUMMARY:
+==92147==     in use at exit: 492,240 bytes in 15 blocks
+==92147==   total heap usage: 127,360 allocs, 127,345 frees, 248,710,558 bytes allocated
+==92147== 
+==92147== 32,816 bytes in 1 blocks are definitely lost in loss record 1 of 4
+==92147==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92147==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==92147==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==92147==    by 0x54C19B5: opendir (opendir.c:190)
+==92147==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147== 
+==92147== 65,632 bytes in 2 blocks are definitely lost in loss record 2 of 4
+==92147==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92147==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==92147==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==92147==    by 0x54C19B5: opendir (opendir.c:190)
+==92147==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147== 
+==92147== 65,632 bytes in 2 blocks are definitely lost in loss record 3 of 4
+==92147==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92147==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==92147==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==92147==    by 0x54C19B5: opendir (opendir.c:190)
+==92147==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147==    by 0x10A1A3: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147== 
+==92147== 328,160 bytes in 10 blocks are definitely lost in loss record 4 of 4
+==92147==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92147==    by 0x54C19B5: __alloc_dir (opendir.c:216)
+==92147==    by 0x54C19B5: opendir_tail (opendir.c:136)
+==92147==    by 0x54C19B5: opendir (opendir.c:190)
+==92147==    by 0x10A0B1: Dedup::run(char const*) (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147==    by 0x109BD7: main (in /home/ece551db/graderbase/work/ym129.098_dedup.bmJO9M/dedup)
+==92147== 
+==92147== LEAK SUMMARY:
+==92147==    definitely lost: 492,240 bytes in 15 blocks
+==92147==    indirectly lost: 0 bytes in 0 blocks
+==92147==      possibly lost: 0 bytes in 0 blocks
+==92147==    still reachable: 0 bytes in 0 blocks
+==92147==         suppressed: 0 bytes in 0 blocks
+==92147== 
+==92147== For counts of detected and suppressed errors, rerun with: -v
+==92147== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
+
+Overall Grade: F
