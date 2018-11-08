@@ -32,15 +32,15 @@ class Dedup
   Dedup() {
     out << "#!/bin/bash\n\n";
     mod = 46093;
-    hash_table.resize(mod);
+    hash_table.resize(mod, "");
   }
 
   Dedup(const Dedup & rhs) :
-      /*dict(rhs.dict),*/ out(rhs.out.str()),
+      /*dict(rhs.dict),*/
+      hash_table(rhs.hash_table),
+      out(rhs.out.str()),
       str_hash(rhs.str_hash),
-      mod(rhs.mod) {
-    hash_table.resize(mod);
-  }
+      mod(rhs.mod) {}
 
   virtual ~Dedup() {}
 
