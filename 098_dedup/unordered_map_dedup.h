@@ -12,44 +12,29 @@
 
 #include <fstream>
 
-#include "functional"
 #include "iostream"
 #include "sstream"
 #include "string"
-//#include "unordered_map"
-#include "list"
-#include "vector"
+#include "unordered_map"
 
 class Dedup
 {
  private:
-  std::vector<std::list<std::pair<std::string, std::string> > > hash_table;
+  std::unordered_map<std::string, std::string> dict;
   std::stringstream out;
-  std::hash<std::string> str_hash;
-  size_t mod;
 
  public:
-  Dedup() {
-    out << "#!/bin/bash\n\n";
-    mod = 504937;
-    hash_table.resize(mod, std::list<std::pair<std::string, std::string> >());
-  }
+  Dedup() { out << "#!/bin/bash\n\n"; }
 
-  Dedup(const Dedup & rhs) :
-      hash_table(rhs.hash_table),
-      out(rhs.out.str()),
-      str_hash(rhs.str_hash),
-      mod(rhs.mod) {}
+  Dedup(const Dedup & rhs) : dict(rhs.dict), out(rhs.out.str()) {}
 
   virtual ~Dedup() {}
 
   Dedup & operator=(const Dedup & rhs) {
     if (this != &rhs) {
       Dedup temp(rhs);
-      std::swap(hash_table, temp.hash_table);
+      std::swap(dict, temp.dict);
       std::swap(out, temp.out);
-      std::swap(str_hash, temp.str_hash);
-      std::swap(mod, temp.mod);
     }
     return *this;
   }
@@ -77,18 +62,13 @@ class Dedup
 
   void remove_file(const char * p) {
     std::string content = read(p);
-    size_t hashval = str_hash(content) % mod;
-
-    std::list<std::pair<std::string, std::string> >::iterator it = hash_table[hashval].begin();
-    while (it != hash_table[hashval].end()) {
-      if (it->first == content) {
-        out << "#Removing " << p << " (duplicate of " << it->second << ").\n";
-        out << "rm " << p << "\n\n";
-        return;
-      }
-      ++it;
+    if (dict.count(content) && dict[content] != p) {  // duplicated
+      out << "#Removing " << p << " (duplicate of " << dict[content] << ").\n";
+      out << "rm " << p << "\n\n";
     }
-    hash_table[hashval].push_back({content, std::string(p)});
+    else {
+      dict[content] = p;
+    }
   }
 
   std::string read(const char * file) {
