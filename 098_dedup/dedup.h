@@ -90,6 +90,7 @@ class Dedup
         out << "rm " << p << "\n\n";
         return;
       }
+      ++it;
     }
     hash_table[hashval].push_back({content, std::string(p)});
   }
