@@ -54,6 +54,7 @@ class Dedup
         std::string p = std::string(path) + "/" + ptr->d_name;
         run(p.c_str());
       }
+      closedir(dir);
     }
     else {  // regular file
       remove_file(path);
