@@ -1,5 +1,5 @@
-Grading at 11/08/2018:00:45:09.001696
-For commit ID d42db2e46b42d570372187da0518981c180dd42a
+Grading at 11/08/2018:15:42:13.260275
+For commit ID 349453f3c336a22780f47babb9b60c8e918ca56e
 Running make
 g++ -o dedup -Wall -Werror -std=c++11 -pedantic -ggdb3 test.cpp
 Found executable dedup
@@ -7,16 +7,200 @@ Found executable dedup
 testcase 1 : ./dedup /var/dedup/d000
   - Valgrind was clean (no errors, no memory leaks)
 Checking output:
-Testcase passed 
+**Testcase failed **
+Not the same file: /var/dedup/d000/file221 + /var/dedup/d000/file248
+Not the same file: /var/dedup/d000/x/file21 + /var/dedup/d000/file282
+Not the same file: /var/dedup/d000/x/y/file36 + /var/dedup/d000/file478
 -----------------------------------------------
 testcase 2 : ./dedup /var/dedup/d001
-  - Valgrind was clean (no errors, no memory leaks)
-Checking output:
-Testcase passed 
+  - Valgrind showed memory leaks
+Valgrind reported errors (test failed).
+==129105== Memcheck, a memory error detector
+==129105== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==129105== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==129105== Command: ./dedup /var/dedup/d001
+==129105== Parent PID: 129103
+==129105== 
+==129105== 
+==129105== Process terminating with default action of signal 13 (SIGPIPE)
+==129105==    at 0x54F2154: write (write.c:27)
+==129105==    by 0x546D1BC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1203)
+==129105==    by 0x546DB2E: new_do_write (fileops.c:457)
+==129105==    by 0x546DB2E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1277)
+==129105==    by 0x5461976: fwrite (iofwrite.c:39)
+==129105==    by 0x4F53773: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x10A231: Dedup::print() (dedup.h:113)
+==129105==    by 0x1099FF: main (test.cpp:9)
+==129105== 
+==129105== HEAP SUMMARY:
+==129105==     in use at exit: 3,660,538 bytes in 18,581 blocks
+==129105==   total heap usage: 90,534 allocs, 71,953 frees, 213,902,372 bytes allocated
+==129105== 
+==129105== 15,125 bytes in 477 blocks are still reachable in loss record 1 of 5
+==129105==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129105==    by 0x4F64DBE: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x4F65C5A: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_replace(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x10A008: Dedup::remove_file(char const*) (dedup.h:89)
+==129105==    by 0x109E22: Dedup::run(char const*) (dedup.h:77)
+==129105==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129105==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129105==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129105==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129105==    by 0x1099E7: main (test.cpp:7)
+==129105== 
+==129105== 560,729 bytes in 1 blocks are still reachable in loss record 2 of 5
+==129105==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129105==    by 0x4F64DBE: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x4F65C5A: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_replace(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x4F5D90E: std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char> >::str() const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x10A21E: Dedup::print() (dedup.h:113)
+==129105==    by 0x1099FF: main (test.cpp:9)
+==129105== 
+==129105== 561,131 bytes in 18,101 blocks are still reachable in loss record 3 of 5
+==129105==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129105==    by 0x4F64DBE: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x4F65C5A: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_replace(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x10A008: Dedup::remove_file(char const*) (dedup.h:89)
+==129105==    by 0x109E22: Dedup::run(char const*) (dedup.h:77)
+==129105==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129105==    by 0x1099E7: main (test.cpp:7)
+==129105== 
+==129105== 1,048,577 bytes in 1 blocks are still reachable in loss record 4 of 5
+==129105==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129105==    by 0x4F652EC: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::reserve(unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x4F58BF7: std::__cxx11::basic_stringbuf<char, std::char_traits<char>, std::allocator<char> >::overflow(int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x4F6359A: std::basic_streambuf<char, std::char_traits<char> >::xsputn(char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x4F53773: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x4F53B0A: std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129105==    by 0x109F62: Dedup::remove_file(char const*) (dedup.h:85)
+==129105==    by 0x109E22: Dedup::run(char const*) (dedup.h:77)
+==129105==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129105==    by 0x1099E7: main (test.cpp:7)
+==129105== 
+==129105== 1,474,976 bytes in 1 blocks are still reachable in loss record 5 of 5
+==129105==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129105==    by 0x10AD73: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:111)
+==129105==    by 0x10AC00: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:436)
+==129105==    by 0x10AA69: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:172)
+==129105==    by 0x10A6AF: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_default_append(unsigned long) (vector.tcc:571)
+==129105==    by 0x10A438: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::resize(unsigned long) (stl_vector.h:692)
+==129105==    by 0x109BD5: Dedup::Dedup() (dedup.h:35)
+==129105==    by 0x1099A0: main (test.cpp:5)
+==129105== 
+==129105== LEAK SUMMARY:
+==129105==    definitely lost: 0 bytes in 0 blocks
+==129105==    indirectly lost: 0 bytes in 0 blocks
+==129105==      possibly lost: 0 bytes in 0 blocks
+==129105==    still reachable: 3,660,538 bytes in 18,581 blocks
+==129105==         suppressed: 0 bytes in 0 blocks
+==129105== 
+==129105== For counts of detected and suppressed errors, rerun with: -v
+==129105== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 -----------------------------------------------
 testcase 3 : ./dedup /var/dedup/*
-  - Valgrind was clean (no errors, no memory leaks)
-Checking output:
-Testcase passed 
+  - Valgrind showed memory leaks
+Valgrind reported errors (test failed).
+==129281== Memcheck, a memory error detector
+==129281== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==129281== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==129281== Command: ./dedup /var/dedup/d000 /var/dedup/d001 /var/dedup/d002 /var/dedup/d003 /var/dedup/d004 /var/dedup/d005 /var/dedup/d006 /var/dedup/d007 /var/dedup/d008 /var/dedup/d009
+==129281== Parent PID: 129279
+==129281== 
+==129281== 
+==129281== Process terminating with default action of signal 13 (SIGPIPE)
+==129281==    at 0x54F2154: write (write.c:27)
+==129281==    by 0x546D1BC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1203)
+==129281==    by 0x546DB2E: new_do_write (fileops.c:457)
+==129281==    by 0x546DB2E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1277)
+==129281==    by 0x5461976: fwrite (iofwrite.c:39)
+==129281==    by 0x4F53773: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x10A231: Dedup::print() (dedup.h:113)
+==129281==    by 0x1099FF: main (test.cpp:9)
+==129281== 
+==129281== HEAP SUMMARY:
+==129281==     in use at exit: 3,694,854 bytes in 18,810 blocks
+==129281==   total heap usage: 97,497 allocs, 78,687 frees, 243,764,748 bytes allocated
+==129281== 
+==129281== 496 bytes in 16 blocks are still reachable in loss record 1 of 7
+==129281==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129281==    by 0x4F64DBE: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x4F65C5A: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_replace(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x10A008: Dedup::remove_file(char const*) (dedup.h:89)
+==129281==    by 0x109E22: Dedup::run(char const*) (dedup.h:77)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x1099E7: main (test.cpp:7)
+==129281== 
+==129281== 837 bytes in 27 blocks are still reachable in loss record 2 of 7
+==129281==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129281==    by 0x4F64DBE: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x4F65C5A: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_replace(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x10A008: Dedup::remove_file(char const*) (dedup.h:89)
+==129281==    by 0x109E22: Dedup::run(char const*) (dedup.h:77)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x1099E7: main (test.cpp:7)
+==129281== 
+==129281== 14,871 bytes in 469 blocks are still reachable in loss record 3 of 7
+==129281==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129281==    by 0x4F64DBE: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x4F65C5A: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_replace(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x10A008: Dedup::remove_file(char const*) (dedup.h:89)
+==129281==    by 0x109E22: Dedup::run(char const*) (dedup.h:77)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x1099E7: main (test.cpp:7)
+==129281== 
+==129281== 567,145 bytes in 18,295 blocks are still reachable in loss record 4 of 7
+==129281==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129281==    by 0x4F64DBE: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x4F65C5A: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_replace(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x10A008: Dedup::remove_file(char const*) (dedup.h:89)
+==129281==    by 0x109E22: Dedup::run(char const*) (dedup.h:77)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x1099E7: main (test.cpp:7)
+==129281== 
+==129281== 587,952 bytes in 1 blocks are still reachable in loss record 5 of 7
+==129281==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129281==    by 0x4F64DBE: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x4F65C5A: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_replace(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x4F5D90E: std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char> >::str() const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x10A21E: Dedup::print() (dedup.h:113)
+==129281==    by 0x1099FF: main (test.cpp:9)
+==129281== 
+==129281== 1,048,577 bytes in 1 blocks are still reachable in loss record 6 of 7
+==129281==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129281==    by 0x4F652EC: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::reserve(unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x4F58BF7: std::__cxx11::basic_stringbuf<char, std::char_traits<char>, std::allocator<char> >::overflow(int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x4F6359A: std::basic_streambuf<char, std::char_traits<char> >::xsputn(char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x4F53773: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x4F53B0A: std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==129281==    by 0x109FDD: Dedup::remove_file(char const*) (dedup.h:86)
+==129281==    by 0x109E22: Dedup::run(char const*) (dedup.h:77)
+==129281==    by 0x109DE1: Dedup::run(char const*) (dedup.h:72)
+==129281==    by 0x1099E7: main (test.cpp:7)
+==129281== 
+==129281== 1,474,976 bytes in 1 blocks are still reachable in loss record 7 of 7
+==129281==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==129281==    by 0x10AD73: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:111)
+==129281==    by 0x10AC00: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:436)
+==129281==    by 0x10AA69: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:172)
+==129281==    by 0x10A6AF: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_default_append(unsigned long) (vector.tcc:571)
+==129281==    by 0x10A438: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::resize(unsigned long) (stl_vector.h:692)
+==129281==    by 0x109BD5: Dedup::Dedup() (dedup.h:35)
+==129281==    by 0x1099A0: main (test.cpp:5)
+==129281== 
+==129281== LEAK SUMMARY:
+==129281==    definitely lost: 0 bytes in 0 blocks
+==129281==    indirectly lost: 0 bytes in 0 blocks
+==129281==      possibly lost: 0 bytes in 0 blocks
+==129281==    still reachable: 3,694,854 bytes in 18,810 blocks
+==129281==         suppressed: 0 bytes in 0 blocks
+==129281== 
+==129281== For counts of detected and suppressed errors, rerun with: -v
+==129281== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
-Overall Grade: A
+Overall Grade: F
