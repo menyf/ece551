@@ -1,4 +1,4 @@
-For this assignment, you are going to write a file de-duplication
+or this assignment, you are going to write a file de-duplication
 program. A de-duplication program searches through a set of
 directories and removes files that are exactly identical to other
 files. However, to reduce the risk of catastrophe as you test this
