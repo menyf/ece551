@@ -28,7 +28,7 @@ uint64_t * readFrequencies(const char * fname) {
   std::ifstream ifs(fname);
   char c = 0;
   while (ifs.get(c)) {
-    ret[128 + c]++;
+    ret[(unsigned char)c]++;
   }
   ret[256]++;
   ifs.close();
