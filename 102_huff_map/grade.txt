@@ -1,5 +1,5 @@
-Grading at 11/10/2018:18:49:26.969490
-For commit ID e896997d33f05d941f0d900910c2b5868af3db1f
+Grading at 11/10/2018:18:55:31.676164
+For commit ID 000c93ef7b46554c2db2f96b61afcfe00ceff31e
 compiling
 g++ -ggdb3 -Wall -Werror -pedantic -std=gnu++98 -c readFreq.cpp
 g++ -ggdb3 -Wall -Werror -pedantic -std=gnu++98 -c node.cpp
@@ -10,160 +10,27 @@ g++ -ggdb3 -Wall -Werror -pedantic -std=gnu++98 -o testMap  readFreq.o  node.o  
 Make succeed, testMap created
 Testcase 1
 -----------------------
-  - Valgrind showed memory leaks
-Valgrind reported errors (test failed).
-==123321== Memcheck, a memory error detector
-==123321== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==123321== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==123321== Command: ./testMap /etc/issue
-==123321== Parent PID: 123320
-==123321== 
-==123321== 
-==123321== Process terminating with default action of signal 6 (SIGABRT)
-==123321==    at 0x5420E97: raise (raise.c:51)
-==123321==    by 0x5422800: abort (abort.c:79)
-==123321==    by 0x5412399: __assert_fail_base (assert.c:92)
-==123321==    by 0x5412411: __assert_fail (assert.c:101)
-==123321==    by 0x109CD5: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:8)
-==123321==    by 0x109C90: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:6)
-==123321==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123321==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123321==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123321==    by 0x111F19: main (testMap.cpp:26)
-==123321== 
-==123321== HEAP SUMMARY:
-==123321==     in use at exit: 8,200 bytes in 59 blocks
-==123321==   total heap usage: 118 allocs, 59 frees, 105,996 bytes allocated
-==123321== 
-==123321== LEAK SUMMARY:
-==123321==    definitely lost: 0 bytes in 0 blocks
-==123321==    indirectly lost: 0 bytes in 0 blocks
-==123321==      possibly lost: 0 bytes in 0 blocks
-==123321==    still reachable: 8,200 bytes in 59 blocks
-==123321==         suppressed: 0 bytes in 0 blocks
-==123321== Reachable blocks (those to which a pointer was found) are not shown.
-==123321== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==123321== 
-==123321== For counts of detected and suppressed errors, rerun with: -v
-==123321== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+  - Valgrind was clean (no errors, no memory leaks)
+Checking output:
+Your file matched the expected output
+Testcase passed 
 Testcase 2
 -----------------------
-  - Valgrind showed memory leaks
-Valgrind reported errors (test failed).
-==123353== Memcheck, a memory error detector
-==123353== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==123353== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==123353== Command: ./testMap /etc/services
-==123353== Parent PID: 123352
-==123353== 
-==123353== 
-==123353== Process terminating with default action of signal 6 (SIGABRT)
-==123353==    at 0x5420E97: raise (raise.c:51)
-==123353==    by 0x5422800: abort (abort.c:79)
-==123353==    by 0x5412399: __assert_fail_base (assert.c:92)
-==123353==    by 0x5412411: __assert_fail (assert.c:101)
-==123353==    by 0x109CD5: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:8)
-==123353==    by 0x109C90: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:6)
-==123353==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123353==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123353==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123353==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123353==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123353==    by 0x111F19: main (testMap.cpp:26)
-==123353== 
-==123353== HEAP SUMMARY:
-==123353==     in use at exit: 13,640 bytes in 197 blocks
-==123353==   total heap usage: 266 allocs, 69 frees, 115,276 bytes allocated
-==123353== 
-==123353== LEAK SUMMARY:
-==123353==    definitely lost: 0 bytes in 0 blocks
-==123353==    indirectly lost: 0 bytes in 0 blocks
-==123353==      possibly lost: 0 bytes in 0 blocks
-==123353==    still reachable: 13,640 bytes in 197 blocks
-==123353==         suppressed: 0 bytes in 0 blocks
-==123353== Reachable blocks (those to which a pointer was found) are not shown.
-==123353== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==123353== 
-==123353== For counts of detected and suppressed errors, rerun with: -v
-==123353== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+  - Valgrind was clean (no errors, no memory leaks)
+Checking output:
+Your file matched the expected output
+Testcase passed 
 Testcase 3
 -----------------------
-  - Valgrind showed memory leaks
-Valgrind reported errors (test failed).
-==123376== Memcheck, a memory error detector
-==123376== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==123376== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==123376== Command: ./testMap /usr/share/dict/words
-==123376== Parent PID: 123375
-==123376== 
-==123376== 
-==123376== Process terminating with default action of signal 6 (SIGABRT)
-==123376==    at 0x5420E97: raise (raise.c:51)
-==123376==    by 0x5422800: abort (abort.c:79)
-==123376==    by 0x5412399: __assert_fail_base (assert.c:92)
-==123376==    by 0x5412411: __assert_fail (assert.c:101)
-==123376==    by 0x109CD5: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:8)
-==123376==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123376==    by 0x109C90: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:6)
-==123376==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123376==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123376==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123376==    by 0x111F19: main (testMap.cpp:26)
-==123376== 
-==123376== HEAP SUMMARY:
-==123376==     in use at exit: 12,232 bytes in 169 blocks
-==123376==   total heap usage: 234 allocs, 65 frees, 112,716 bytes allocated
-==123376== 
-==123376== LEAK SUMMARY:
-==123376==    definitely lost: 0 bytes in 0 blocks
-==123376==    indirectly lost: 0 bytes in 0 blocks
-==123376==      possibly lost: 0 bytes in 0 blocks
-==123376==    still reachable: 12,232 bytes in 169 blocks
-==123376==         suppressed: 0 bytes in 0 blocks
-==123376== Reachable blocks (those to which a pointer was found) are not shown.
-==123376== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==123376== 
-==123376== For counts of detected and suppressed errors, rerun with: -v
-==123376== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+  - Valgrind was clean (no errors, no memory leaks)
+Checking output:
+Your file matched the expected output
+Testcase passed 
 Testcase 4
 -----------------------
-  - Valgrind showed memory leaks
-Valgrind reported errors (test failed).
-==123419== Memcheck, a memory error detector
-==123419== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==123419== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==123419== Command: ./testMap /usr/share/dict/cracklib-small
-==123419== Parent PID: 123418
-==123419== 
-==123419== 
-==123419== Process terminating with default action of signal 6 (SIGABRT)
-==123419==    at 0x5420E97: raise (raise.c:51)
-==123419==    by 0x5422800: abort (abort.c:79)
-==123419==    by 0x5412399: __assert_fail_base (assert.c:92)
-==123419==    by 0x5412411: __assert_fail (assert.c:101)
-==123419==    by 0x109CD5: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:8)
-==123419==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123419==    by 0x109C90: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:6)
-==123419==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123419==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123419==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123419==    by 0x109C53: Node::buildMap(BitString, std::map<unsigned int, BitString, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, BitString> > >&) (node.cpp:5)
-==123419==    by 0x111F19: main (testMap.cpp:26)
-==123419== 
-==123419== HEAP SUMMARY:
-==123419==     in use at exit: 10,824 bytes in 109 blocks
-==123419==   total heap usage: 177 allocs, 68 frees, 111,436 bytes allocated
-==123419== 
-==123419== LEAK SUMMARY:
-==123419==    definitely lost: 0 bytes in 0 blocks
-==123419==    indirectly lost: 0 bytes in 0 blocks
-==123419==      possibly lost: 0 bytes in 0 blocks
-==123419==    still reachable: 10,824 bytes in 109 blocks
-==123419==         suppressed: 0 bytes in 0 blocks
-==123419== Reachable blocks (those to which a pointer was found) are not shown.
-==123419== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==123419== 
-==123419== For counts of detected and suppressed errors, rerun with: -v
-==123419== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+  - Valgrind was clean (no errors, no memory leaks)
+Checking output:
+Your file matched the expected output
+Testcase passed 
 
-Overall Grade: F
+Overall Grade: A
