@@ -1,4 +1,4 @@
-Grading at 11/10/2018:21:57:06.169229
+Grading at 11/10/2018:23:09:52.226640
 For commit ID a1e35aaa2a2f501b84ce174338d7591cf3010682
 Attempting to compile mystat.c
 Your code seems to compile fine.
@@ -431,6 +431,6 @@ Note from the grader:
 Good job on abstraction.  Also good job on code structure. It would be better if comments are more informative not only like " print out the first three lines", but also provide the context. Overall good job.
 Total points 8 / 9 = 88.88 % 
  -> This is 15% of your overall grade on this assignment
-Total: 0.85 * 85.00 + 0.15 * 88.88=85.58
+Total: 0.85 * 100 + 0.15 * 88.88=98.33
 
-Overall Grade: 85.58
+Overall Grade: 98.33
