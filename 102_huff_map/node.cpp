@@ -5,7 +5,6 @@ void Node::buildMap(BitString b, std::map<unsigned, BitString> & theMap) {
     right->buildMap(b.plusOne(), theMap);
     left->buildMap(b.plusZero(), theMap);
   }
-  assert(left == NULL && right == NULL);
   theMap[sym] = b;
   return;
 }
