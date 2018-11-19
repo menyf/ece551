@@ -1,0 +1,27 @@
+Step 1: Read a command name and, run it
+---------------------------------------
+
+  You should write a program called "myShell." Whenever your command shell
+  expects input, it should print a prompt ("myShell$").
+  It should read one line of input (from stdin), which is the name of a
+  command. For this step, you may assume that the user will type the full
+  path to the command they want to run.
+
+  Your shell should then run the specified command--see the man pages for
+  the system calls fork, execve, and waitpid. Note that there is a library
+  function "system" which combines all three of these, which may be easier
+  for now, but will NOT work for later steps.
+
+  After the specified program exits, your shell should print:
+    Program exited with status 0
+    [replace 0 with the actual exit status]
+  OR
+    Program was killed by signal 11
+    [replace 11 with the actual signal]
+  See man waitpid and the WIFSIGNALED (status) macro.
+
+  Then your shell should print the "myShell$" prompt again and repeat
+  the process.
+
+  If the user types the command "exit," or EOF is encountered reading
+  from stdin, then the shell should exit.
