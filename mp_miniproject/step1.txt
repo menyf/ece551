@@ -1,27 +1,37 @@
-Step 1: Read a command name and, run it
----------------------------------------
+Step 2: Improving commands
+--------------------------
 
-  You should write a program called "myShell." Whenever your command shell
-  expects input, it should print a prompt ("myShell$").
-  It should read one line of input (from stdin), which is the name of a
-  command. For this step, you may assume that the user will type the full
-  path to the command they want to run.
+  For this step, you will improve your handling of commands in two ways:
 
-  Your shell should then run the specified command--see the man pages for
-  the system calls fork, execve, and waitpid. Note that there is a library
-  function "system" which combines all three of these, which may be easier
-  for now, but will NOT work for later steps.
+   1. The program searches the ECE551PATH environment variable for commands
+   2. Commands can take arguments (separated by white spaces)
 
-  After the specified program exits, your shell should print:
-    Program exited with status 0
-    [replace 0 with the actual exit status]
-  OR
-    Program was killed by signal 11
-    [replace 11 with the actual signal]
-  See man waitpid and the WIFSIGNALED (status) macro.
+  For the first, you will want to initialize the ECE551PATH
+  environment variable withe the value of PATH that exists when your
+  shell starts (see man getenv), which will be a
+  colon-delimited list of paths. When the user types a command name that
+  does not have a forward slash (/) in it, you should search each
+  directory specified in the ECE551PATH (in order) for the specified program.
+  If the program is found, your shell should execute it. If not, your
+  shell should print
+    Command commandName not found
+    [replace commandName with the actual command name]
+  If the path name does contain a / in it, you should only look in the
+  specified directory (which may not be on the PATH at all). Note that a
+  path with a / in it could be relative (.e.g, ./myProgram) or absolute
+  (e.g. /bin/ls).
 
-  Then your shell should print the "myShell$" prompt again and repeat
-  the process.
-
-  If the user types the command "exit," or EOF is encountered reading
-  from stdin, then the shell should exit.
+  For the second, you should also make commands such that they can take
+  arguments separated by white space. For example
+    ./myProgram a b 23
+  runs myProgram with arguments "a," "b," and "23." There may be an
+  arbitrary amount of whitespace in between arguments, so
+    ./myProgram         a               b     23
+  has the same behavior as the previous example. However, any white space
+  which is escaped with a \ should be literally included in the argument
+  and not used as a separator:
+    ./myProgram  a\ b c\ \ d
+  should run myProgram with two arguments "a b" and "c  d." Note that
+    ./myProgram a\  b c \ d
+  whould have arguments "a " "b" "c" and " d," as the non-escaped spaces
+  separate arguments.
