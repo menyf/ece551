@@ -1,58 +1,46 @@
+#ifndef SHELL_H
+#define SHELL_H
+
 #include <unistd.h>
 
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 
 #include "command.h"
+#define MAX_DIRECTORY_LENGTH 256
 
 class Shell
 {
  private:
-  //vector<Command> commands;
-  Command command;
+  Command * command;
+  char current_work_directory[MAX_DIRECTORY_LENGTH];
   std::vector<std::string> path;
+  std::map<std::string, std::string> variables;
 
  public:
   Shell();
   void run();
-  void complete_command(std::string _command);
+  void set_variable(std::string key, std::string val) { variables[key] = val; };
+  std::string get_variable(std::string key) { return variables[key]; }
+  const std::vector<std::string> & get_path() { return path; }
+  void prompt();
 };
 
-Shell::Shell() {
-  // Initialize PATH
-  char * _path = getenv("PATH");
-  char * pch;
-  pch = strtok(_path, ":");
-  while (pch != NULL) {
-    path.push_back(pch);
-    pch = strtok(NULL, ":");
-  }
-}
+class Parser
+{
+ private:
+  Shell * shell;
+  std::string command;
+  std::vector<std::string> args;
 
-// The entry of Shell
-void Shell::run() {
-  std::string binary_filename;
-  std::cout << "myShell$ ";
-  while (std::getline(std::cin, binary_filename)) {
-    if (binary_filename == "exit") {
-      break;
-    }
-    command = binary_filename;
-    complete_command(command.get_command());
-    command.exec();
-    std::cout << "myShell$ ";
-  }
-}
+ public:
+  Parser(std::string str = "", Shell * shell = NULL) : shell(shell) { parse(str); }
+  Command * generate();
+  void parse(std::string cmd);
+  std::string parse_blank(std::string str);
+  void complete_command(Command * _cmd);
+};
 
-void Shell::complete_command(std::string _command) {
-  if (_command.find("/") == std::string::npos) {
-    for (size_t i = 0; i < path.size(); i++) {
-      std::string full_path = path[i] + "/" + _command;
-      if (access(full_path.c_str(), F_OK) != -1) {
-        command.set_command(full_path);
-        return;
-      }
-    }
-  }
-}
+#endif

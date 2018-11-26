@@ -4,9 +4,9 @@ BASE=$(basename $(SRCS))
 OBJS=$(addsuffix .o, $(BASE))
 #OBJS=$(patsubst %.cpp, %.o, $(SRCS))
 CPPFLAGS=-std=gnu++98 -pedantic -Wall -Werror -ggdb3
-myShell:$(OBJS)
+myShell:$(OBJS) $(wildcard *.h)
 	g++ -o $@ $(OBJS)
-%.o:%.h %.cpp
+%.o:%.cpp
 	g++ $(CPPFLAGS) -c $<
 
 .PHONY:clean
