@@ -23,7 +23,7 @@ class Shell
   Shell();
   void run();
   void set_variable(std::string key, std::string val) { variables[key] = val; };
-  std::string get_variable(std::string key) { return variables[key]; }
+  std::map<std::string, std::string> & get_variable() { return variables; }
   const std::vector<std::string> & get_path() { return path; }
   void prompt();
 };
@@ -41,6 +41,7 @@ class Parser
   void parse(std::string cmd);
   std::string parse_blank(std::string str);
   void complete_command(Command * _cmd);
+  std::string expand_var_in_arg(std::string str);
 };
 
 #endif

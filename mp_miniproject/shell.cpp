@@ -1,5 +1,7 @@
 #include "shell.h"
 
+#include <cstring>
+
 Shell::Shell() : command(NULL) {
   // Initialize PATH
   char * _path = getenv("PATH");
@@ -7,6 +9,7 @@ Shell::Shell() : command(NULL) {
   pch = strtok(_path, ":");
   while (pch != NULL) {
     path.push_back(pch);
+    //    std::cout << path.back() << "\n";
     pch = strtok(NULL, ":");
   }
 }
@@ -71,11 +74,16 @@ void Parser::parse(std::string cmd) {
   for (size_t i = 0; i < formatted_cmd.length(); i++) {
     if (formatted_cmd[i] == ' ' && formatted_cmd[i - 1] != '\\') {
       std::string sub_str = formatted_cmd.substr(l, i - l);
-      strs.push_back(parse_blank(sub_str));
+      std::string parsed_blank_str = parse_blank(sub_str);
+      std::string expanded_var_str = expand_var_in_arg(parsed_blank_str);
+      strs.push_back(expanded_var_str);
       l = i + 1;
     }
   }
-  strs.push_back(parse_blank(formatted_cmd.substr(l)));
+  std::string sub_str = formatted_cmd.substr(l);
+  std::string parsed_blank_str = parse_blank(sub_str);
+  std::string expanded_var_str = expand_var_in_arg(parsed_blank_str);
+  strs.push_back(expanded_var_str);
 
   // Step3: extract values
   command = strs[0];
@@ -118,4 +126,22 @@ void Parser::complete_command(Command * _cmd) {
       it++;
     }
   }
+}
+
+std::string Parser::expand_var_in_arg(std::string str) {
+  std::string res;
+  std::map<std::string, std::string> & mp = shell->get_variable();
+  for (size_t i = 0; i < str.length(); i++) {
+    if (str[i] == '$') {  // A variable found
+      size_t l = i + 1;
+      while (i + 1 < str.length() && (isalnum(str[i + 1]) || str[i + 1] == '_')) {
+        i++;
+      }
+      res += mp[str.substr(l, i - l + 1)];
+    }
+    else {
+      res += str[i];
+    }
+  }
+  return str;
 }
