@@ -1,5 +1,7 @@
-#include "command.h"
-
+#include "shell.h"
+#include "sstream"
+#include "string"
+extern char ** environ;
 void Command::exec() {
   pid_t cpid, w;
   int wstatus;
@@ -41,8 +43,7 @@ void Command::exec_child_process() {
     }
     newargv[args.size() + 1] = NULL;
 
-    char * newenviron[] = {NULL};
-    execve(newargv[0], newargv, newenviron);
+    execve(newargv[0], newargv, environ);
     perror("execve"); /* execve() returns only on error */
     delete[] newargv;
   }
@@ -92,4 +93,97 @@ void ChangeDirectoryCommand::exec() {
   if (chdir(arg.c_str()) == -1) {
     perror("Can not change directory");
   }
+}
+
+void SetCommand::exec() {
+  try {
+    if (get_args().size() != 2) {
+      throw ArgsException();
+      return;
+    }
+  }
+  catch (ArgsException & e) {
+    std::cerr << e.what() << std::endl;
+  }
+  catch (std::exception & e) {
+    std::cerr << e.what() << std::endl;
+  }
+  std::vector<std::string> & args = get_args();
+  //  std::cout << " Setting $" << args[0] << " to " << args[1] << "\n";
+  shell->set_variable(args[0], args[1]);
+}
+
+void ExportCommand::exec() {
+  try {
+    if (get_args().size() != 1) {
+      throw ArgsException();
+      return;
+    }
+  }
+  catch (ArgsException & e) {
+    std::cerr << e.what() << std::endl;
+  }
+  catch (std::exception & e) {
+    std::cerr << e.what() << std::endl;
+  }
+  std::vector<std::string> & args = get_args();
+  //  std::cout << " Setting $" << args[0] << " to " << args[1] << "\n";
+  std::string key_copy = args[0];
+  char * key = (char *)key_copy.c_str();
+  std::string val_copy = shell->get_variable(key_copy);
+  char * val = (char *)val_copy.c_str();
+  //  std::cout << "Setting " << key << " to " << val << "\n";
+  setenv(key, val, 1);
+  shell->update_variable();
+}
+
+void IncCommand::exec() {
+  try {
+    if (get_args().size() != 1) {
+      throw ArgsException();
+      return;
+    }
+  }
+  catch (ArgsException & e) {
+    std::cerr << e.what() << std::endl;
+  }
+  catch (std::exception & e) {
+    std::cerr << e.what() << std::endl;
+  }
+  std::vector<std::string> & args = get_args();
+  //  std::cout << " Setting $" << args[0] << " to " << args[1] << "\n";
+  std::string key_copy = args[0];
+  std::string val_copy = shell->get_variable(key_copy);
+
+  if (val_copy.empty()) {  // not exist
+    shell->set_variable(key_copy, "1");
+    return;
+  }
+
+  int num = read_number(val_copy);
+  std::string val_new = "1";
+  if (num != 0) {
+    std::stringstream ss;
+    num++;
+    ss << num;
+    val_new = ss.str();
+  }
+  shell->set_variable(key_copy, val_new);
+}
+
+int IncCommand::read_number(std::string str) {
+  int res = 0;
+  bool isNegtive = false;
+  if (str[0] == '-') {
+    str = str.substr(1);
+    isNegtive = true;
+  }
+  if (str.empty())
+    return 0;  // a single '-'
+  for (size_t i = 0; i < str.length(); i++) {
+    if (!isdigit(str[i]))
+      return 0;
+    res = res * 10 + str[i] - '0';
+  }
+  return isNegtive ? -res : res;
 }

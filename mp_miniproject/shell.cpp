@@ -1,10 +1,18 @@
 #include "shell.h"
 
 #include <cstring>
-
+extern char ** environ;
 Shell::Shell() : command(NULL) {
+  update_variable();
+}
+
+void Shell::update_path() {
+  path.clear();
+
   // Initialize PATH
-  char * _path = getenv("PATH");
+  std::string path_copy = variables["PATH"];
+  char * _path = (char *)path_copy.c_str();
+  //  std::cout << variables["PATH"] << "\n";
   char * pch;
   pch = strtok(_path, ":");
   while (pch != NULL) {
@@ -12,6 +20,17 @@ Shell::Shell() : command(NULL) {
     //    std::cout << path.back() << "\n";
     pch = strtok(NULL, ":");
   }
+}
+
+void Shell::update_variable() {
+  for (char ** env = environ; *env; env++) {
+    std::string line = *env;
+    int p = line.find("=");
+    std::string key = line.substr(0, p);
+    std::string val = line.substr(p + 1);
+    variables[key] = val;
+  }
+  update_path();
 }
 
 // The entry of Shell
@@ -23,9 +42,14 @@ void Shell::run() {
       break;
     Parser parser(input, this);
     command = parser.generate();
-    parser.complete_command(command);
-    command->exec();
-    delete command;
+    if (command != NULL) {
+      parser.complete_command(command);
+      command->exec();
+      delete command;
+    }
+    else {
+      std::cerr << "Arguments error\n";
+    }
     prompt();
   }
 }
@@ -109,6 +133,23 @@ Command * Parser::generate() {
   if (command == "cd") {
     return new ChangeDirectoryCommand(args);
   }
+  else if (command == "set") {
+    if (parse_to_set() == 0)
+      return NULL;
+    SetCommand * setCommand = new SetCommand(args);
+    setCommand->setShell(shell);
+    return setCommand;
+  }
+  else if (command == "export") {
+    ExportCommand * exportCommand = new ExportCommand(args);
+    exportCommand->setShell(shell);
+    return exportCommand;
+  }
+  else if (command == "inc") {
+    IncCommand * incCommand = new IncCommand(args);
+    incCommand->setShell(shell);
+    return incCommand;
+  }
   return new Command(command, args);
 }
 
@@ -143,5 +184,31 @@ std::string Parser::expand_var_in_arg(std::string str) {
       res += str[i];
     }
   }
-  return str;
+  //  std::cout << "replacing " << str << " to " << res << "\n";
+  return res;
+}
+
+int Parser::parse_to_set() {
+  args.resize(2);
+  size_t i = 0;
+  for (; i + 2 < input.length(); i++) {
+    if (input.substr(i, 3) == "set") {
+      i += 3;
+      break;
+    }
+  }
+  while (i < input.length() && input[i] == ' ')
+    i++;
+  size_t l = i;
+  while (i < input.length()) {
+    if (input[i] == ' ' && input[i - 1] != '\\')
+      break;
+    i++;
+  }
+  args[0] = input.substr(l, i - l);
+  while (i < input.length() && input[i] == ' ')
+    i++;
+  args[1] = input.substr(i);
+  args[1] = expand_var_in_arg(args[1]);
+  return args[0] != "" && args[1] != "";
 }

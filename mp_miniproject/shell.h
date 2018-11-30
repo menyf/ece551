@@ -1,6 +1,7 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+#include <assert.h>
 #include <unistd.h>
 
 #include <iostream>
@@ -22,8 +23,13 @@ class Shell
  public:
   Shell();
   void run();
+  void update_variable();
+  void update_path();
   void set_variable(std::string key, std::string val) { variables[key] = val; };
   std::map<std::string, std::string> & get_variable() { return variables; }
+  std::string get_variable(std::string key) {
+    return variables.find(key) != variables.end() ? variables[key] : "";
+  }
   const std::vector<std::string> & get_path() { return path; }
   void prompt();
 };
@@ -32,16 +38,19 @@ class Parser
 {
  private:
   Shell * shell;
+  std::string input;
   std::string command;
   std::vector<std::string> args;
 
- public:
-  Parser(std::string str = "", Shell * shell = NULL) : shell(shell) { parse(str); }
-  Command * generate();
-  void parse(std::string cmd);
   std::string parse_blank(std::string str);
-  void complete_command(Command * _cmd);
   std::string expand_var_in_arg(std::string str);
+  int parse_to_set();
+
+ public:
+  Parser(std::string str = "", Shell * shell = NULL) : shell(shell), input(str) { parse(str); }
+  void complete_command(Command * _cmd);
+  void parse(std::string cmd);
+  Command * generate();
 };
 
 #endif

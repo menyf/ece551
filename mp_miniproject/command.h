@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 
+class Shell;
 class Command
 {
  private:
@@ -46,6 +47,55 @@ class ChangeDirectoryCommand : public Command
  public:
   ChangeDirectoryCommand(std::vector<std::string> args) : Command("cd", args) {}
   virtual void exec();
+};
+
+class SetCommand : public Command
+{
+ private:
+  Shell * shell;
+  class ArgsException : public std::exception
+  {
+   public:
+    const char * what() const throw() { return "Bad arguments"; }
+  };
+
+ public:
+  SetCommand(std::vector<std::string> args) : Command("set", args) {}
+  virtual void exec();
+  void setShell(Shell * shell) { this->shell = shell; }
+};
+
+class ExportCommand : public Command
+{
+ private:
+  Shell * shell;
+  class ArgsException : public std::exception
+  {
+   public:
+    const char * what() const throw() { return "Bad arguments"; }
+  };
+
+ public:
+  ExportCommand(std::vector<std::string> args) : Command("export", args) {}
+  virtual void exec();
+  void setShell(Shell * shell) { this->shell = shell; }
+};
+
+class IncCommand : public Command
+{
+ private:
+  class ArgsException : public std::exception
+  {
+   public:
+    const char * what() const throw() { return "Bad arguments"; }
+  };
+  Shell * shell;
+
+ public:
+  IncCommand(std::vector<std::string> args) : Command("inc", args) {}
+  virtual void exec();
+  void setShell(Shell * shell) { this->shell = shell; }
+  int read_number(std::string str);
 };
 
 #endif
