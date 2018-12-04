@@ -1,56 +1,44 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#include <assert.h>
-#include <unistd.h>
-
-#include <iostream>
 #include <map>
 #include <string>
 #include <vector>
 
-#include "command.h"
 #define MAX_DIRECTORY_LENGTH 256
 
+// Forward declaration
+class Command;
+
+/*
+Class Name: Shell
+Description: Take control of everything. 
+1. When we initialize a Shell object, it would read all env variables
+2. When variable is exported, update env variables
+3. It reads a command each time, and run it until meets a "exit" command or C-d
+*/
 class Shell
 {
- private:
-  Command * command;
+private:
+  Command *command; // current command to be executed.
   char current_work_directory[MAX_DIRECTORY_LENGTH];
-  std::vector<std::string> path;
-  std::map<std::string, std::string> variables;
+  std::vector<std::string> path;                // $PATH variable
+  std::map<std::string, std::string> variables; // all variables
 
- public:
+public:
   Shell();
-  void run();
-  void update_variable();
+  void run();             // the entry of shell
+  void update_variable(); // read variables from env
   void update_path();
+  void prompt(); // prompt infomation before entering command.
+
+  // getter and setters
   void set_variable(std::string key, std::string val) { variables[key] = val; };
-  std::map<std::string, std::string> & get_variable() { return variables; }
-  std::string get_variable(std::string key) {
+  std::map<std::string, std::string> &get_variable() { return variables; }
+  std::string get_variable(std::string key)
+  {
     return variables.find(key) != variables.end() ? variables[key] : "";
   }
-  const std::vector<std::string> & get_path() { return path; }
-  void prompt();
+  const std::vector<std::string> &get_path() { return path; }
 };
-
-class Parser
-{
- private:
-  Shell * shell;
-  std::string input;
-  std::string command;
-  std::vector<std::string> args;
-
-  std::string parse_blank(std::string str);
-  std::string expand_var_in_arg(std::string str);
-  int parse_to_set();
-
- public:
-  Parser(std::string str = "", Shell * shell = NULL) : shell(shell), input(str) { parse(str); }
-  void complete_command(Command * _cmd);
-  void parse(std::string cmd);
-  Command * generate();
-};
-
 #endif

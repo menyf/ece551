@@ -1,9 +1,7 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
+
 
 #include <algorithm>
 #include <cstdio>
@@ -14,87 +12,68 @@
 #include <vector>
 
 class Shell;
+
+/*
+Class Name: Command
+Description: A command with arguments. It can be a regular command, which is itself. For this case, we will call fork and execve to run this command. For special command that I implement it myself, we will call some library function. These commands would be regared as derived classes.
+*/
 class Command
 {
- private:
+private:
   std::string command;
   std::vector<std::string> args;
 
- public:
-  Command() {}
+protected:
+  Shell *shell;
+
+public:
+  Command() : shell(NULL) {}
   Command(std::string command, std::vector<std::string> args) : command(command), args(args) {}
-  Command(const Command & rhs) : command(rhs.command), args(rhs.args) {}
   virtual ~Command() {}
-  //Command & operator=(const Command & rhs);
-  //Command & operator=(const std::string & rhs);
+
+  // execute function.
+  // regular command would call fork and execve
+  // derived commands would call libraries functions
   virtual void exec();
   void exec_child_process();
-  void exec_parent_process(pid_t & cpid, pid_t & w, int & wstatus);
+  void exec_parent_process(pid_t &cpid, pid_t &w, int &wstatus);
+
+  // getters and setters
   std::string get_command() { return command; }
   void set_command(const std::string str) { command = str; }
-  std::vector<std::string> & get_args() { return args; }
+  std::vector<std::string> &get_args() { return args; }
+  void setShell(Shell *shell) { this->shell = shell; }
 };
+
 
 class ChangeDirectoryCommand : public Command
 {
- private:
-  class ArgsException : public std::exception
-  {
-   public:
-    const char * what() const throw() { return "Bad arguments"; }
-  };
 
- public:
+public:
   ChangeDirectoryCommand(std::vector<std::string> args) : Command("cd", args) {}
   virtual void exec();
 };
 
 class SetCommand : public Command
 {
- private:
-  Shell * shell;
-  class ArgsException : public std::exception
-  {
-   public:
-    const char * what() const throw() { return "Bad arguments"; }
-  };
 
- public:
+public:
   SetCommand(std::vector<std::string> args) : Command("set", args) {}
   virtual void exec();
-  void setShell(Shell * shell) { this->shell = shell; }
 };
 
 class ExportCommand : public Command
 {
- private:
-  Shell * shell;
-  class ArgsException : public std::exception
-  {
-   public:
-    const char * what() const throw() { return "Bad arguments"; }
-  };
-
- public:
+public:
   ExportCommand(std::vector<std::string> args) : Command("export", args) {}
   virtual void exec();
-  void setShell(Shell * shell) { this->shell = shell; }
 };
 
 class IncCommand : public Command
 {
- private:
-  class ArgsException : public std::exception
-  {
-   public:
-    const char * what() const throw() { return "Bad arguments"; }
-  };
-  Shell * shell;
-
- public:
+public:
   IncCommand(std::vector<std::string> args) : Command("inc", args) {}
   virtual void exec();
-  void setShell(Shell * shell) { this->shell = shell; }
   int read_number(std::string str);
 };
 
