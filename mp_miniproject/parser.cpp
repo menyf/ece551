@@ -1,7 +1,10 @@
 #include "parser.h"
+
+#include <unistd.h>
+
+#include "assert.h"
 #include "command.h"
 #include "shell.h"
-#include <unistd.h>
 
 std::string Parser::format() {
   // (a) trim leading spaces,
@@ -14,13 +17,15 @@ std::string Parser::format() {
    */
   int j = -1;
   for (size_t i = 0; i < input.size(); i++) {
-    if (input[i] == ' ' && j == -1) { // leading space
+    if (input[i] == ' ' && j == -1) {  // leading space
       continue;
-    } else if (input[i] == ' ' && input[i - 1] != '\\') { // space seperator
+    }
+    else if (input[i] == ' ' && input[i - 1] != '\\') {  // space seperator
       if ((int)i == j + 1) {
         formatted_input += input[i];
       }
-    } else { // meaningful char
+    }
+    else {  // meaningful char
       formatted_input += input[i];
       j = i;
     }
@@ -43,11 +48,9 @@ void Parser::parse() {
   std::string formatted_cmd = format();
 
   // Step2: divide string according to space seperator
-  size_t l =
-      0; // the left most index of current arg, note a command is also a arg
+  size_t l = 0;  // the left most index of current arg, note a command is also a arg
   for (size_t i = 0; i < formatted_cmd.length(); i++) {
-    if (formatted_cmd[i] == ' ' &&
-        formatted_cmd[i - 1] != '\\') // a space seperator hit
+    if (formatted_cmd[i] == ' ' && formatted_cmd[i - 1] != '\\')  // a space seperator hit
     {
       std::string sub_str = formatted_cmd.substr(l, i - l);
       // parse all escaped blank to be blank
@@ -56,7 +59,7 @@ void Parser::parse() {
       std::string expanded_var_str = expand_var_in_arg(parsed_blank_str);
       // collect this arg
       strs.push_back(expanded_var_str);
-      l = i + 1; // move to the start position of next arg
+      l = i + 1;  // move to the start position of next arg
     }
   }
   std::string sub_str = formatted_cmd.substr(l);
@@ -76,35 +79,43 @@ std::string Parser::parse_blank(std::string str) {
     if (str[i] == '\\' && i + 1 < str.length() && str[i + 1] == ' ') {
       res += ' ';
       i++;
-    } else {
+    }
+    else {
       res += str[i];
     }
   }
   return res;
 }
 
-Command *Parser::generate() {
+Command * Parser::generate() {
   if (command == "cd") {
-    return new ChangeDirectoryCommand(args);
-  } else if (command == "set") {
+    ChangeDirectoryCommand * changeDirectoryCommand = new ChangeDirectoryCommand(args);
+    set_redirection(changeDirectoryCommand);
+    return changeDirectoryCommand;
+  }
+  else if (command == "set") {
     if (parse_to_set() == 0)
       return NULL;
-    SetCommand *setCommand = new SetCommand(args);
+    SetCommand * setCommand = new SetCommand(args);
     setCommand->setShell(shell);
     return setCommand;
-  } else if (command == "export") {
-    ExportCommand *exportCommand = new ExportCommand(args);
+  }
+  else if (command == "export") {
+    ExportCommand * exportCommand = new ExportCommand(args);
     exportCommand->setShell(shell);
     return exportCommand;
-  } else if (command == "inc") {
-    IncCommand *incCommand = new IncCommand(args);
+  }
+  else if (command == "inc") {
+    IncCommand * incCommand = new IncCommand(args);
     incCommand->setShell(shell);
     return incCommand;
   }
-  return new Command(command, args);
+  Command * command = new Command(this->command, args);
+  set_redirection(command);
+  return command;
 }
 
-void Parser::complete_command(Command *_cmd) {
+void Parser::complete_command(Command * _cmd) {
   std::string _command = _cmd->get_command();
   if (_command.find("/") == std::string::npos) {
     const std::vector<std::string> path = shell->get_path();
@@ -122,16 +133,16 @@ void Parser::complete_command(Command *_cmd) {
 
 std::string Parser::expand_var_in_arg(std::string str) {
   std::string res;
-  std::map<std::string, std::string> &mp = shell->get_variable();
+  std::map<std::string, std::string> & mp = shell->get_variable();
   for (size_t i = 0; i < str.length(); i++) {
-    if (str[i] == '$') { // A variable found
+    if (str[i] == '$') {  // A variable found
       size_t l = i + 1;
-      while (i + 1 < str.length() &&
-             (isalnum(str[i + 1]) || str[i + 1] == '_')) {
+      while (i + 1 < str.length() && (isalnum(str[i + 1]) || str[i + 1] == '_')) {
         i++;
       }
       res += mp[str.substr(l, i - l + 1)];
-    } else {
+    }
+    else {
       res += str[i];
     }
   }
@@ -153,7 +164,7 @@ int Parser::parse_to_set() {
     i++;
 
   // parse the first arg of set command, i.e. key
-  size_t l = i; // the start position
+  size_t l = i;  // the start position
   while (i < input.length()) {
     if (input[i] == ' ' && input[i - 1] != '\\')
       break;
@@ -175,4 +186,24 @@ int Parser::parse_to_set() {
   // return value indicate whether both of the key and value successfully
   // obtained.
   return args[0] != "" && args[1] != "";
+}
+
+void Parser::set_redirection(Command * command) {
+  for (size_t i = 0; i < args.size(); i++) {
+    if (args[i] != "<" && args[i] != ">" && args[i] != "2>")
+      continue;
+    assert(i + 1 < args.size());
+    if (args[i] == "<") {  // stdin
+      command->set_stream(0, args[i + 1]);
+    }
+    else if (args[i] == ">") {  // stdout
+      command->set_stream(1, args[i + 1]);
+    }
+    else if (args[i] == "2>") {  // stderr
+      command->set_stream(2, args[i + 1]);
+    }
+    args.erase(args.begin() + i, args.begin() + i + 2);
+    i--;
+  }
+  command->get_args() = this->args;
 }

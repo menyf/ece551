@@ -1,8 +1,6 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-
-
 #include <algorithm>
 #include <cstdio>
 #include <cstring>
@@ -19,14 +17,15 @@ Description: A command with arguments. It can be a regular command, which is its
 */
 class Command
 {
-private:
+ private:
   std::string command;
   std::vector<std::string> args;
 
-protected:
-  Shell *shell;
+ protected:
+  Shell * shell;
+  std::string stream[3];  // 0/1/2 => stdin/stdout/stderr
 
-public:
+ public:
   Command() : shell(NULL) {}
   Command(std::string command, std::vector<std::string> args) : command(command), args(args) {}
   virtual ~Command() {}
@@ -36,42 +35,41 @@ public:
   // derived commands would call libraries functions
   virtual void exec();
   void exec_child_process();
-  void exec_parent_process(pid_t &cpid, pid_t &w, int &wstatus);
+  void exec_parent_process(pid_t & cpid, pid_t & w, int & wstatus);
 
   // getters and setters
   std::string get_command() { return command; }
   void set_command(const std::string str) { command = str; }
-  std::vector<std::string> &get_args() { return args; }
-  void setShell(Shell *shell) { this->shell = shell; }
+  std::vector<std::string> & get_args() { return args; }
+  void setShell(Shell * shell) { this->shell = shell; }
+  void set_stream(int fd, std::string filename) { stream[fd] = filename; }
+  void redirect_stream();
 };
-
 
 class ChangeDirectoryCommand : public Command
 {
-
-public:
+ public:
   ChangeDirectoryCommand(std::vector<std::string> args) : Command("cd", args) {}
   virtual void exec();
 };
 
 class SetCommand : public Command
 {
-
-public:
+ public:
   SetCommand(std::vector<std::string> args) : Command("set", args) {}
   virtual void exec();
 };
 
 class ExportCommand : public Command
 {
-public:
+ public:
   ExportCommand(std::vector<std::string> args) : Command("export", args) {}
   virtual void exec();
 };
 
 class IncCommand : public Command
 {
-public:
+ public:
   IncCommand(std::vector<std::string> args) : Command("inc", args) {}
   virtual void exec();
   int read_number(std::string str);
