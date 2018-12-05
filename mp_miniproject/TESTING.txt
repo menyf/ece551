@@ -1,4 +1,194 @@
-I have finished the 1st step, the latest commit id is
-4efd9921bf074b7f0e0125a9ad44183b10ca3469.
+# Mini Project README and Testing
 
-# Step 1 Test
+In this project, I have finished the first three steps and the redirection of
+the fourth step. If there is some special format, I will mention them in each
+part below.
+
+I have provide you a customized "myecho" program for testing in the directory.
+It has the following functions:
+(1) print the arguments you passed in when run it
+(2) After you run it, it can read an string(len < 100) and print it in stdout.
+(3) You will see that it can print a line that should in stderr.
+
+## Step 1 Testing
+
+(1) Exit test with "exit" command".
+
+Run "./myShell", then input "exit".
+
+Explanation: You will see that it exit which is as expected since we meet a "exit" command.
+
+(2) Exit test with EOF.
+
+Run "./myShell", then use C-d.
+
+Explanation: You will see that it exit which is as expected since we passed an "EOF" signal.
+
+(3) Run command with absolute path with no arguments.
+
+Run "./myShell", then input "/bin/ls".
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $/bin/ls
+ command.cpp   command.o	  Makefile   myecho.c   myShell.cpp   numerics.txt   parser.cpp   parser.o   shell.cpp	 shell.o   '#TESTING.txt#'   tmp
+ command.h     commandShell.txt   myecho     myShell    myShell.o     out	     parser.h	  README     shell.h	 step.txt   TESTING.txt
+Program exited with status 0
+```
+    
+Explanation: This is the list of files in current directory, which is exactly
+you call built-in linux "ls" command. Here is a example of absolute path.
+
+(4) Run command with relative path and no arguments.
+
+Run "./myShell", then input "./myecho", then input "abc".
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $./myecho
+[stdout]hi there, this is a helper progam
+[stdout]argv[0]: ./myecho
+[stdout] Please enter something:abc
+[stdout]What you just input is: abc
+[stderr]This should be print to stderr stream
+Program exited with status 0
+```
+
+Explanation: The string "abc" in the fourth line is our input. This is correct
+since it output the same as you run "./myecho" in bash shell. Here is an example
+of relative path.
+
+(5) Run command with a non-0 exit.
+
+Run "./myShell", then input "/bin/ls -12768"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $/bin/ls -12768
+/bin/ls: invalid option -- '2'
+Try '/bin/ls --help' for more information.
+Program exited with status 2
+```
+
+Explanation: Since "12768" is not a valid options, so program exits with "2"
+rather than 0.
+
+(6) todo: kill example
+
+
+## Step 2 Testing
+
+(1) System environment variable test.
+
+Run "./myShell", then input "echo $PATH"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+Program exited with status 0
+```
+
+Explanation: I initilize all the enrionment variables at the beginning of
+running, $PATH is only one of them. The value of them is exactly the same as
+in 'environ' variable declared in system.
+
+(2) ECE551PATH variable test 1
+
+Run "./myShell", then input "echo $ECE551PATH"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $echo $ECE551PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+Program exited with status 0
+```
+
+Explanation: ECE551PATH is initilized with value of PATH and would be exported
+at the beginning of shell.
+
+(3) ECE551PATH variable test 2
+
+Run "./myShell", then input "env"
+
+The output would be:
+``` 
+myShell:/home/ym129/ece551/mp_miniproject $env
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_CONNECTION=24.163.77.18 53817 152.3.77.223 22
+LESSCLOSE=/usr/bin/lesspipe %s %s
+LANG=en_US.UTF-8
+EDITOR=emacs -nw
+S_COLORS=auto
+XDG_SESSION_ID=83657
+USER=ym129
+PWD=/home/ym129/ece551/mp_miniproject
+HOME=/home/ym129
+LC_CTYPE=en_US.UTF-8
+SSH_CLIENT=24.163.77.18 53817 22
+SSH_TTY=/dev/pts/139
+MAIL=/var/mail/ym129
+VISUAL=emacs -nw
+TERM=xterm-256color
+SHELL=/bin/bash
+SHLVL=1
+LOGNAME=ym129
+XDG_RUNTIME_DIR=/run/user/1294
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+LESSOPEN=| /usr/bin/lesspipe %s
+_=./myShell
+OLDPWD=/home/ym129/ece551
+ECE551PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+Program exited with status 0
+```
+
+Explanation: Please note the last item of output, when we start the shell, the
+$ECE551PATH is exported, so we can see it from 'env' command.
+
+(4) Empty command test.
+
+Run "./myShell", then press enter
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $
+myShell:/home/ym129/ece551/mp_miniproject $
+```
+
+Explanation: This is correct, since myShell receive nothing, so it run no command.
+
+(5) Non-exist command test.
+
+Run "./myShell", then input "xxx"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $xxx
+Command xxx not found
+```
+
+Explanation: Since command "xxx" does not exist in any path of $ECE551PATH, it
+can not be processed.
+
+(6) Run command in $ECE551PATH
+
+Run "./myShell", then input "ls"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $ls
+ a.out	       command.h   commandShell.txt     Makefile   myecho.c   myShell.cpp   numerics.txt   parser.cpp   parser.o   shell.cpp   shell.o	 '#TESTING.txt#'   tmp
+ command.cpp   command.o   kill_example_src.c   myecho	   myShell    myShell.o     out		   parser.h     README	   shell.h     step.txt   TESTING.txt
+Program exited with status 0
+```
+
+Explanation: myShell searches $ECE551PATH for command, and found it in one of
+the path, then "ls" was ran.
+
+
+
+## Sample
+(1) Run ./myprogram < testcases/input1.txt
+    You will see that it prints xyz, which is correct because [reasons]
+(2) Run ./myprogram < testcases/input2.txt
+    You will see that it prints xyz, which is correct because [reasons]

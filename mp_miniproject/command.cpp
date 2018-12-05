@@ -36,7 +36,7 @@ void Command::exec_child_process() {
     std::cout << "Command " << command << " not found\n";
   }
   else {
-    redirect_stream();
+    //    redirect_stream();
     char ** newargv = new char *[args.size() + 2];
     newargv[0] = (char *)command.c_str();
     for (size_t i = 0; i < args.size(); i++) {
@@ -121,6 +121,10 @@ void ExportCommand::exec() {
   char * val = (char *)val_copy.c_str();
   setenv(key, val, 1);
   shell->update_variable();
+
+  // Drew: the user changes ECE551PATH, it should affect where your shell
+  if (key_copy == "ECE551PATH")
+    shell->update_path();
 }
 
 void IncCommand::exec() {
