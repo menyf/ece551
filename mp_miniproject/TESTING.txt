@@ -843,3 +843,18 @@ Explanation: Here we do not enter anything from stdin, nor do we output anything
 from stdout or stderr. We use input.txt as the input and stderr.txt and
 stdout.txt as the output file. We see that stderr.txt contains line leading with
 '[stderr]' tag, and stdout.txt contains lines leading with '[stdout]'.
+
+(6) Error handling for stream redirection
+
+Run "./myShell"
+then input "./myecho <",
+
+The output would be:
+
+```
+myShell:/home/ym129/ece551/mp_miniproject $./myecho <
+[myShell KNOWN Issue]Please specify the file you want to input/output
+```
+
+Explanation: Since this case does not assign file. myShell would prompt
+you to give a filename.

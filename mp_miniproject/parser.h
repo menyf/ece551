@@ -28,7 +28,11 @@ class Parser
   // parse current input to a set command.
   int parse_to_set();  // special case, args be parsed in different way.
 
+  // return formatted input
   std::string format();
+
+  // check whether a variable contains only letter/num/_
+  bool isValidVariable(std::string);
 
  public:
   Parser(std::string str = "", Shell * shell = NULL) : shell(shell), input(str) { parse(); }
@@ -44,7 +48,5 @@ class Parser
 
   // set rediections to the command.
   void set_redirection(Command * command);
-
-  bool isValidVariable(std::string);
 };
 #endif

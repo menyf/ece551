@@ -27,7 +27,6 @@ void Shell::run() {
     run_command(input);
     prompt();
   }
-  prompt();
 }
 
 void Shell::run_command(std::string input) {
@@ -45,6 +44,7 @@ void Shell::run_command(std::string input) {
     std::cerr << "[myShell UNKNOWN Issue]" << e.what() << "\n";
   }
 }
+
 void Shell::update_variable() {
   for (char ** env = environ; *env; env++) {
     std::string line = *env;

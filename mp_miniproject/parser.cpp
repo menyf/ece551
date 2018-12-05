@@ -76,6 +76,7 @@ void Parser::parse() {
   args = strs;
 }
 
+// replace all '\ ' with ' ', we do not replace valid '\'
 std::string Parser::parse_blank(std::string str) {
   std::string res;
   for (size_t i = 0; i < str.length(); i++) {
@@ -90,6 +91,7 @@ std::string Parser::parse_blank(std::string str) {
   return res;
 }
 
+// Generate Command object according to specific command
 Command * Parser::generate() {
   if (command == "cd") {
     ChangeDirectoryCommand * changeDirectoryCommand = new ChangeDirectoryCommand(args);
@@ -98,7 +100,7 @@ Command * Parser::generate() {
   }
   else if (command == "set") {
     if (parse_to_set() == 0)
-      throw std::logic_error("The arguments seems bad, please follow 'set var value' format");
+      throw std::logic_error("The arguments seem bad, please follow 'set var value' format");
     else if (!isValidVariable(args[0]))
       throw std::logic_error("The var can only contains letter/number/underscore");
     SetCommand * setCommand = new SetCommand(args);
@@ -132,6 +134,7 @@ Command * Parser::generate() {
   return command;
 }
 
+// complete path accordint to ECE551PATH
 void Parser::complete_command(Command * _cmd) {
   std::string _command = _cmd->get_command();
   if (_command.find("/") == std::string::npos) {
@@ -148,6 +151,7 @@ void Parser::complete_command(Command * _cmd) {
   }
 }
 
+// replace variables in arguments
 std::string Parser::expand_var_in_arg(std::string str) {
   std::string res;
   std::map<std::string, std::string> & mp = shell->get_variable();
@@ -166,6 +170,7 @@ std::string Parser::expand_var_in_arg(std::string str) {
   return res;
 }
 
+// special judge, parse argument for set
 int Parser::parse_to_set() {
   args.resize(2);
   size_t i = 0;
@@ -211,7 +216,10 @@ void Parser::set_redirection(Command * command) {
   for (size_t i = 0; i < args.size(); i++) {
     if (args[i] != "<" && args[i] != ">" && args[i] != "2>")
       continue;
-    assert(i + 1 < args.size());
+    if (i + 1 >= args.size()) {
+      throw std::logic_error("Please specify the file you want to input/output");
+    }
+
     if (args[i] == "<") {  // stdin
       command->set_stream(0, args[i + 1]);
     }
