@@ -36,7 +36,7 @@ void Command::exec_child_process() {
     std::cout << "Command " << command << " not found\n";
   }
   else {
-    //    redirect_stream();
+    redirect_stream();
     char ** newargv = new char *[args.size() + 2];
     newargv[0] = (char *)command.c_str();
     for (size_t i = 0; i < args.size(); i++) {

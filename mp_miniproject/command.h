@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <cstdio>
 #include <cstring>
-#include <exception>
 #include <iostream>
 #include <string>
 #include <vector>

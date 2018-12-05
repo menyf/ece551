@@ -31,14 +31,18 @@ void Shell::run() {
 }
 
 void Shell::run_command(std::string input) {
-  if (input.empty())
-    return;
-  Parser parser(input, this);
-  command = parser.generate();
-  if (command != NULL) {
+  try {
+    Parser parser(input, this);
+    command = parser.generate();
     parser.complete_command(command);
     command->exec();
     delete command;
+  }
+  catch (std::logic_error & e) {
+    std::cerr << "[myShell KNOWN Issue]" << e.what() << "\n";
+  }
+  catch (std::exception & e) {
+    std::cerr << "[myShell UNKNOWN Issue]" << e.what() << "\n";
   }
 }
 void Shell::update_variable() {

@@ -16,13 +16,15 @@ It has the following functions:
 
 Run "./myShell", then input "exit".
 
-Explanation: You will see that it exit which is as expected since we meet a "exit" command.
+Explanation: You will see that it exit which is as expected since we meet a
+"exit" command.
 
 (2) Exit test with EOF.
 
 Run "./myShell", then use C-d.
 
-Explanation: You will see that it exit which is as expected since we passed an "EOF" signal.
+Explanation: You will see that it exit which is as expected since we passed an
+"EOF" signal.
 
 (3) Run command with absolute path with no arguments.
 
@@ -291,7 +293,209 @@ and leading blank to demonstrate myShell's ability to parse arguments correctly.
 
 ## Step 3 Test
 
-export path and then run program.
+Note: for cd/set/export/inc commands, I would not prompt "Program exited with
+status 0".
+
+(1) Change to legal relative directory.
+Run "./myShell", then input "cd .."
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $cd ..
+myShell:/home/ym129/ece551 $
+```
+
+Explanation: Current work directory is "/home/ym129/ece551/mp_miniproject",
+when we change to its parent directory, it would be "/home/ym129/ece551",
+the new work directory is correct.
+
+
+(2) Change to root directory(~)
+Run "./myShell", then input "cd ~"
+
+The output would be:
+```
+myShell:/home/ym129/ece551 $cd ~
+myShell:/home/ym129 $
+```
+
+Explanation: No matter where we are now, when we change to root directory,
+it always lead us to the directory that declaed in environment variable
+$HOME. This is correct, since for my login account, the root directory is
+'/home/ym129'.
+
+
+(3) Change to absolute directory.
+Run "./myShell", then input "cd /home/ym129/ece551/mp_miniproject"
+
+The output would be:
+```
+myShell:/home/ym129 $cd /home/ym129/ece551/mp_miniproject
+myShell:/home/ym129/ece551/mp_miniproject $
+```
+
+Explanation: We can change to an absolute directory directly.
+
+(4) Change to illegal directory.
+Run "./myShell", then input "cd xxx"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $cd xxx
+Can not change directory: No such file or directory
+```
+
+Explanation: Since directory "xxx" does not exist, library function takes
+care of it.
+
+(5) Access variables with combination and fake variable.
+
+Run "./myShell", then input "echo $USER-is-using-$TERM", then input
+"echo I-can-not-find-$IT."
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $echo $USER-is-using-$TERM
+ym129-is-using-xterm-256color
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $echo I-can-not-find-$IT.
+I-can-not-find-.
+Program exited with status 0
+```
+
+Explanation: myShell would parse the string, replace all dollar-sign
+leading variables with its value, if we cannot find it, it would be
+replaced with an empty string(i.e. $IT is replaced with nothing.)
+
+(6) Set a variable and export it.
+
+Run "./myShell", then input "set a 123", then input "echo $a", then
+input "env", then export, then 'env'
+
+The output would be:
+```myShell:/home/ym129/ece551/mp_miniproject $set a 123
+myShell:/home/ym129/ece551/mp_miniproject $env
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_CONNECTION=24.163.77.18 53937 152.3.77.223 22
+LESSCLOSE=/usr/bin/lesspipe %s %s
+LANG=en_US.UTF-8
+EDITOR=emacs -nw
+S_COLORS=auto
+XDG_SESSION_ID=83713
+USER=ym129
+PWD=/home/ym129/ece551/mp_miniproject
+HOME=/home/ym129
+LC_CTYPE=en_US.UTF-8
+SSH_CLIENT=24.163.77.18 53937 22
+SSH_TTY=/dev/pts/133
+MAIL=/var/mail/ym129
+VISUAL=emacs -nw
+TERM=xterm-256color
+SHELL=/bin/bash
+SHLVL=1
+LOGNAME=ym129
+XDG_RUNTIME_DIR=/run/user/1294
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+LESSOPEN=| /usr/bin/lesspipe %s
+OLDPWD=/home/ym129
+_=./myShell
+ECE551PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $echo $a
+123
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $export a
+myShell:/home/ym129/ece551/mp_miniproject $env
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_CONNECTION=24.163.77.18 53937 152.3.77.223 22
+LESSCLOSE=/usr/bin/lesspipe %s %s
+LANG=en_US.UTF-8
+EDITOR=emacs -nw
+S_COLORS=auto
+XDG_SESSION_ID=83713
+USER=ym129
+PWD=/home/ym129/ece551/mp_miniproject
+HOME=/home/ym129
+LC_CTYPE=en_US.UTF-8
+SSH_CLIENT=24.163.77.18 53937 22
+SSH_TTY=/dev/pts/133
+MAIL=/var/mail/ym129
+VISUAL=emacs -nw
+TERM=xterm-256color
+SHELL=/bin/bash
+SHLVL=1
+LOGNAME=ym129
+XDG_RUNTIME_DIR=/run/user/1294
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+LESSOPEN=| /usr/bin/lesspipe %s
+OLDPWD=/home/ym129
+_=./myShell
+ECE551PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+a=123
+Program exited with status 0
+```
+
+Explanation: In this case, we first set "a" to "123", it would replace all "$a",
+then we run "echo $a", it should output "123" which is what we just set. Right
+now, if we run 'env', "a=123" would not be there. However, when we run 'export'
+then 'env', it shows up, which means it is added to environment variables, and
+applied to all programs.
+
+(7) Update environment variable with 'set' and 'export'
+
+Run "./myShell",
+then input "set ECE551PATH $ECE551PATH:/home/ym129/ece551/mp_miniproject",
+then input "export ECE551PATH",
+then input "env",
+then input "myecho", and input "trivial_input" for "myecho".
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $set ECE551PATH $ECE551PATH:/home/ym129/ece551/mp_miniproject
+myShell:/home/ym129/ece551/mp_miniproject $export ECE551PATH
+myShell:/home/ym129/ece551/mp_miniproject $env
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_CONNECTION=24.163.77.18 53937 152.3.77.223 22
+LESSCLOSE=/usr/bin/lesspipe %s %s
+LANG=en_US.UTF-8
+EDITOR=emacs -nw
+S_COLORS=auto
+XDG_SESSION_ID=83713
+USER=ym129
+PWD=/home/ym129/ece551/mp_miniproject
+HOME=/home/ym129
+LC_CTYPE=en_US.UTF-8
+SSH_CLIENT=24.163.77.18 53937 22
+SSH_TTY=/dev/pts/133
+MAIL=/var/mail/ym129
+VISUAL=emacs -nw
+TERM=xterm-256color
+SHELL=/bin/bash
+SHLVL=1
+LOGNAME=ym129
+XDG_RUNTIME_DIR=/run/user/1294
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+LESSOPEN=| /usr/bin/lesspipe %s
+OLDPWD=/home/ym129
+_=./myShell
+ECE551PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/ym129/ece551/mp_miniproject
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $myecho
+[stdout]hi there, this is a helper progam
+[stdout]argv[0]: /home/ym129/ece551/mp_miniproject/myecho
+[stdout] Please enter something:trivial_input
+[stdout]What you just input is: trivial_input
+[stderr]This should be print to stderr stream
+Program exited with status 0
+```
+
+Explanation: This case demonstrate an way to modify the searched path, we can
+add any path to current ECE551PATH. Before we export $ECE551PATH, it ends with
+"/usr/games:/usr/local/games". After exported, it ends with what we just set.
+Now, myShell also searches "/home/ym129/ece551/mp_miniproject" for executable.
+In this case I am also showing that we can simply use "myecho" rather than
+"./myecho".
+
 
 ## Sample
 (1) Run ./myprogram < testcases/input1.txt

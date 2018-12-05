@@ -68,6 +68,9 @@ void Parser::parse() {
   strs.push_back(expanded_var_str);
 
   // Step3: extract values
+  if (strs.empty() || strs[0].empty()) {
+    throw std::logic_error("You entered an empty command.");
+  }
   command = strs[0];
   strs.erase(strs.begin());
   args = strs;
@@ -95,17 +98,29 @@ Command * Parser::generate() {
   }
   else if (command == "set") {
     if (parse_to_set() == 0)
-      return NULL;
+      throw std::logic_error("The arguments seems bad, please follow 'set var value' format");
     SetCommand * setCommand = new SetCommand(args);
     setCommand->setShell(shell);
     return setCommand;
   }
   else if (command == "export") {
+    if (args.size() < (size_t)1) {
+      throw std::logic_error("There should be at lease an argument to be exported");
+    }
+    else if (args.size() > (size_t)1) {
+      throw std::logic_error("You can only export one argument at a time");
+    }
     ExportCommand * exportCommand = new ExportCommand(args);
     exportCommand->setShell(shell);
     return exportCommand;
   }
   else if (command == "inc") {
+    if (args.size() < (size_t)1) {
+      throw std::logic_error("There should be at lease an argument to be 'inc'ed");
+    }
+    else if (args.size() > (size_t)1) {
+      throw std::logic_error("You can only inc one argument at a time");
+    }
     IncCommand * incCommand = new IncCommand(args);
     incCommand->setShell(shell);
     return incCommand;
