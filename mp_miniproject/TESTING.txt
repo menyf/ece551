@@ -185,7 +185,113 @@ Program exited with status 0
 Explanation: myShell searches $ECE551PATH for command, and found it in one of
 the path, then "ls" was ran.
 
+(7) Run command with multiple arguments
 
+Run "./myShell", then input "ls -l -a"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $ls -l -a
+total 2484
+drwxrwxr-x   3 ym129 ym129   4096 Dec  4 22:34  .
+drwxr-xr-x 110 ym129 ym129   4096 Nov 15 13:23  ..
+-rw-rw-r--   1 ym129 ym129   4148 Dec  4 21:54  command.cpp
+-rw-rw-r--   1 ym129 ym129   2069 Dec  4 13:52  command.h
+-rw-rw-r--   1 ym129 ym129 502848 Dec  4 22:32  command.o
+-rw-rw-r--   1 ym129 ym129   7055 Nov 12 12:53  commandShell.txt
+drwxrwxr-x   2 ym129 ym129     64 Nov 11 18:36  .honor
+-rw-rw-r--   1 ym129 ym129    383 Dec  4 22:32  Makefile
+-rwxrwxr-x   1 ym129 ym129   8520 Dec  4 19:32  myecho
+-rw-rw-r--   1 ym129 ym129    471 Dec  4 19:32  myecho.c
+-rwxrwxr-x   1 ym129 ym129 523648 Dec  4 22:32  myShell
+-rw-rw-r--   1 ym129 ym129    154 Dec  3 21:47  myShell.cpp
+-rw-rw-r--   1 ym129 ym129 316408 Dec  4 22:32  myShell.o
+-rw-rw-r--   1 ym129 ym129   8881 Nov 12 12:53  numerics.txt
+-rw-r--r--   1 ym129 ym129   5840 Dec  4 14:06  parser.cpp
+-rw-r--r--   1 ym129 ym129   1148 Dec  4 10:57  parser.h
+-rw-rw-r--   1 ym129 ym129 587328 Dec  4 22:32  parser.o
+-rw-rw-r--   1 ym129 ym129   2475 Nov 12 12:53  README
+-rw-rw-r--   1 ym129 ym129   1520 Dec  4 22:04  shell.cpp
+-rw-rw-r--   1 ym129 ym129   1326 Dec  4 21:38  shell.h
+-rw-rw-r--   1 ym129 ym129 494512 Dec  4 22:32  shell.o
+-rw-rw-r--   1 ym129 ym129   1645 Nov 30 02:46  step.txt
+lrwxrwxrwx   1 ym129 ym129     42 Dec  4 22:34  .#TESTING.txt -> ym129@vcm-181.vm.duke.edu.64191:1537993709
+-rw-rw-r--   1 ym129 ym129   7241 Dec  4 22:34 '#TESTING.txt#'
+-rw-rw-r--   1 ym129 ym129   7237 Dec  4 22:16  TESTING.txt
+Program exited with status 0
+```
+
+Explanation: This is the same as the bash shell running "ls -l -a"
+
+(8) Recognizing leading blanks, seperating blanks, and tailing blanks
+
+Run "./myShell", then input "        ls   -l   -a"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $ls -l -a
+total 2484
+drwxrwxr-x   3 ym129 ym129   4096 Dec  4 22:34  .
+drwxr-xr-x 110 ym129 ym129   4096 Nov 15 13:23  ..
+-rw-rw-r--   1 ym129 ym129   4148 Dec  4 21:54  command.cpp
+-rw-rw-r--   1 ym129 ym129   2069 Dec  4 13:52  command.h
+-rw-rw-r--   1 ym129 ym129 502848 Dec  4 22:32  command.o
+-rw-rw-r--   1 ym129 ym129   7055 Nov 12 12:53  commandShell.txt
+drwxrwxr-x   2 ym129 ym129     64 Nov 11 18:36  .honor
+-rw-rw-r--   1 ym129 ym129    383 Dec  4 22:32  Makefile
+-rwxrwxr-x   1 ym129 ym129   8520 Dec  4 19:32  myecho
+-rw-rw-r--   1 ym129 ym129    471 Dec  4 19:32  myecho.c
+-rwxrwxr-x   1 ym129 ym129 523648 Dec  4 22:32  myShell
+-rw-rw-r--   1 ym129 ym129    154 Dec  3 21:47  myShell.cpp
+-rw-rw-r--   1 ym129 ym129 316408 Dec  4 22:32  myShell.o
+-rw-rw-r--   1 ym129 ym129   8881 Nov 12 12:53  numerics.txt
+-rw-r--r--   1 ym129 ym129   5840 Dec  4 14:06  parser.cpp
+-rw-r--r--   1 ym129 ym129   1148 Dec  4 10:57  parser.h
+-rw-rw-r--   1 ym129 ym129 587328 Dec  4 22:32  parser.o
+-rw-rw-r--   1 ym129 ym129   2475 Nov 12 12:53  README
+-rw-rw-r--   1 ym129 ym129   1520 Dec  4 22:04  shell.cpp
+-rw-rw-r--   1 ym129 ym129   1326 Dec  4 21:38  shell.h
+-rw-rw-r--   1 ym129 ym129 494512 Dec  4 22:32  shell.o
+-rw-rw-r--   1 ym129 ym129   1645 Nov 30 02:46  step.txt
+lrwxrwxrwx   1 ym129 ym129     42 Dec  4 22:34  .#TESTING.txt -> ym129@vcm-181.vm.duke.edu.64191:1537993709
+-rw-rw-r--   1 ym129 ym129   7241 Dec  4 22:34 '#TESTING.txt#'
+-rw-rw-r--   1 ym129 ym129   7237 Dec  4 22:16  TESTING.txt
+Program exited with status 0
+```
+
+Explanation: This is the same as the bash shell running "ls -l -a". In myShell,
+I treat all non-escaped blank as seperating blank, the leading blanks and
+tailing blanks do not count. There is an exception for 'set' command, we will
+test this later.
+
+(9) Escaped blank.
+
+Run "./myShell", then input "./myecho This\ is\ an\ escaped\ line. This\ is\ another\ escaped\ line.",
+then input "trivial_input."
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $./myecho \ This\ is\ an\ escaped\ line.\ \\  \ This\ is\ another\ escaped\\\ line.
+[stdout]hi there, this is a helper progam
+[stdout]argv[0]: ./myecho
+[stdout]argv[1]:  This is an escaped line. \
+[stdout]argv[2]:  This is another escaped\\ line.
+[stdout] Please enter something:trivial_input
+[stdout]What you just input is: trivial_input
+[stderr]This should be print to stderr stream
+Program exited with status 0
+```
+
+Explanation: In this test, we pass two arguments when we run it, which are
+"\ This\ is\ an\ escaped\ line.\ \\" and "\ This\ is\ another\ escaped\\\ line.".
+It should be regarded as " This is an escaped line. \" and
+" This is another escaped\\ line." , which are exactly the third and the
+fourth line in output. Please note that I intentionally added some backslashes,
+and leading blank to demonstrate myShell's ability to parse arguments correctly.
+
+## Step 3 Test
+
+export path and then run program.
 
 ## Sample
 (1) Run ./myprogram < testcases/input1.txt
