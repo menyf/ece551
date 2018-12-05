@@ -73,7 +73,6 @@ void Command::exec_parent_process(pid_t & cpid, pid_t & w, int & wstatus) {
 
 void Command::redirect_stream() {
   if (!stream[0].empty()) {  // stdin must differ from stdout and stderr
-    std::cout << "[MYF]: redirecting stdin from " << stream[0] << "\n";
     assert(stream[0] != stream[1] && stream[0] != stream[2]);
     int fd = open(stream[0].c_str(), O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
     dup2(fd, 0);

@@ -99,6 +99,8 @@ Command * Parser::generate() {
   else if (command == "set") {
     if (parse_to_set() == 0)
       throw std::logic_error("The arguments seems bad, please follow 'set var value' format");
+    else if (!isValidVariable(args[0]))
+      throw std::logic_error("The var can only contains letter/number/underscore");
     SetCommand * setCommand = new SetCommand(args);
     setCommand->setShell(shell);
     return setCommand;
@@ -186,6 +188,7 @@ int Parser::parse_to_set() {
     i++;
   }
   args[0] = input.substr(l, i - l);
+  args[0] = parse_blank(args[0]);
   args[0] = expand_var_in_arg(args[0]);
 
   // skip blank
@@ -196,6 +199,7 @@ int Parser::parse_to_set() {
   // note: here we take all regular blank(' ') as blank, but not only escaped
   // blank as blank
   args[1] = input.substr(i);
+  args[1] = parse_blank(args[1]);
   args[1] = expand_var_in_arg(args[1]);
 
   // return value indicate whether both of the key and value successfully
@@ -221,4 +225,13 @@ void Parser::set_redirection(Command * command) {
     i--;
   }
   command->get_args() = this->args;
+}
+
+bool Parser::isValidVariable(std::string var) {
+  for (size_t i = 0; i < var.length(); i++) {
+    if (!isalnum(var[i]) && var[i] != '_') {
+      return false;
+    }
+  }
+  return true;
 }

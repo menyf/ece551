@@ -154,10 +154,11 @@ Run "./myShell", then press enter
 The output would be:
 ```
 myShell:/home/ym129/ece551/mp_miniproject $
-myShell:/home/ym129/ece551/mp_miniproject $
+[myShell KNOWN Issue]You entered an empty command.
 ```
 
-Explanation: This is correct, since myShell receive nothing, so it run no command.
+Explanation: This is correct, since myShell receive nothing, so it run no
+command but return an information.
 
 (5) Non-exist command test.
 
@@ -441,7 +442,7 @@ now, if we run 'env', "a=123" would not be there. However, when we run 'export'
 then 'env', it shows up, which means it is added to environment variables, and
 applied to all programs.
 
-(7) Update environment variable with 'set' and 'export'
+(7) Update ECE551PATH environment variable with 'set' and 'export'
 
 Run "./myShell",
 then input "set ECE551PATH $ECE551PATH:/home/ym129/ece551/mp_miniproject",
@@ -497,8 +498,348 @@ In this case I am also showing that we can simply use "myecho" rather than
 "./myecho".
 
 
-## Sample
-(1) Run ./myprogram < testcases/input1.txt
-    You will see that it prints xyz, which is correct because [reasons]
-(2) Run ./myprogram < testcases/input2.txt
-    You will see that it prints xyz, which is correct because [reasons]
+(8) 'Set' command invalid argument handling
+
+Run "./myShell",
+then input "set a   ".
+then input "set a-b xyz"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $set a
+[myShell KNOWN Issue]The arguments seems bad, please follow 'set var value' format
+myShell:/home/ym129/ece551/mp_miniproject $set a-b xyz
+[myShell KNOWN Issue]The var can only contains letter/number/underscore
+```
+
+Explanation: The 'set' command takes two arguments, if we only give myShell one
+argument, it can not further proceed. The first argument var starts from the
+first non-blank character after 'set', and ends until it meet a char which is
+not letter/number/underscore, because this is the naming requirement of the
+variable.
+
+
+(9) 'Set' command with space-seperated value, 
+
+Run "./myShell",
+then input "set   a   current\ user is $USER".
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $set   a   current\ user is $USER
+myShell:/home/ym129/ece551/mp_miniproject $echo $a
+current\ user is ym129
+Program exited with status 0
+```
+
+Explanation: In myShell, the arguments was divide into two parts. The first
+argument var starts from the first non-blank character after 'set', and ends
+until it meet a char which is not letter/number/underscore, because this is
+the naming requirement of the variable. The second argument value starts
+at the first non-space character after the first argument var. For it, we
+treat all escaped blank as a simple blank, and we do not distinguish seperating
+blank from escaped blank. I parse both of them to a blank here.
+
+(10) 'Export' command with argument number error handling
+
+Run "./myShell",
+then input "export a b c",
+then input "export"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $export a b c
+[myShell KNOWN Issue]You can only export one argument at a time
+myShell:/home/ym129/ece551/mp_miniproject $export
+[myShell KNOWN Issue]There should be at lease an argument to be exported
+```
+
+Explanation: In myShell, export is a implemented command that takes one
+argument, which is the variable name that user want to export. If more than
+two arguments are given or no argument are given, myShell would prompt the
+error information.
+
+(11) 'Export' command instance
+
+Run "./myShell",
+then input "set a b",
+then input "export a",
+then input "env"
+
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $set a b
+myShell:/home/ym129/ece551/mp_miniproject $export a
+myShell:/home/ym129/ece551/mp_miniproject $env
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_CONNECTION=24.163.77.18 56880 152.3.77.223 22
+LESSCLOSE=/usr/bin/lesspipe %s %s
+LANG=en_US.UTF-8
+EDITOR=emacs -nw
+S_COLORS=auto
+XDG_SESSION_ID=84578
+USER=ym129
+PWD=/home/ym129/ece551/mp_miniproject
+HOME=/home/ym129
+LC_CTYPE=en_US.UTF-8
+SSH_CLIENT=24.163.77.18 56880 22
+SSH_TTY=/dev/pts/47
+MAIL=/var/mail/ym129
+VISUAL=emacs -nw
+TERM=xterm-256color
+SHELL=/bin/bash
+SHLVL=1
+LOGNAME=ym129
+XDG_RUNTIME_DIR=/run/user/1294
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+LESSOPEN=| /usr/bin/lesspipe %s
+OLDPWD=/home/ym129
+_=./myShell
+ECE551PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+a=b
+Program exited with status 0
+```
+
+Explanation: From the second last line, you can see variable a applies to all programs.
+
+(12) 'Inc' a non-exist variable
+
+Run "./myShell",
+then input "inc abc",
+then input "echo $abc"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $inc abc
+myShell:/home/ym129/ece551/mp_miniproject $echo $abc
+1
+Program exited with status 0
+```
+
+Explanation: Since variable $abc does not exist in myShell, so we regard it as 0,
+after increasement, it turned out to be 1;
+
+(13) 'Inc' a existed non-number variable
+
+Run "./myShell",
+then input "set a bc",
+then input "echo $a",
+then input "inc a",
+then input "echo $a"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $set a bc
+myShell:/home/ym129/ece551/mp_miniproject $echo $a
+bc
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $inc a
+myShell:/home/ym129/ece551/mp_miniproject $echo $a
+1
+Program exited with status 0
+```
+
+Explanation: Initially we set $a with the value 'bc', then we increase it,
+since it is a non-number value, we regard it as 0, and increase it to 1
+
+(14) 'Inc' a existed positive variable
+
+Run "./myShell",
+then input "set a 123",
+then input "inc a",
+then input "echo $a"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $set a 123
+myShell:/home/ym129/ece551/mp_miniproject $inc a
+myShell:/home/ym129/ece551/mp_miniproject $echo $a
+124
+Program exited with status 0
+```
+
+Explanation: Initially we set $a with the value "123", then we increase it,
+since it is already a number, we add one to it.
+
+(15) 'Inc' a existed negative variable
+
+Run "./myShell",
+then input "set a -100",
+then input "inc a",
+then input "echo $a",
+then input "set a -1",
+then input "inc a",
+then input "echo $a"
+
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $set a -100
+myShell:/home/ym129/ece551/mp_miniproject $inc a
+myShell:/home/ym129/ece551/mp_miniproject $echo $a
+-99
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $set a -1
+myShell:/home/ym129/ece551/mp_miniproject $inc a
+myShell:/home/ym129/ece551/mp_miniproject $echo $a
+0
+Program exited with status 0
+```
+
+Explanation: Increase a negative number, just like add one to a negative number.
+
+
+(16) 'Inc' a '-'
+
+Run "./myShell"
+then input "set a -",
+then input "inc a",
+then input "echo $a"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $set a -
+myShell:/home/ym129/ece551/mp_miniproject $inc a
+myShell:/home/ym129/ece551/mp_miniproject $echo $a
+1
+Program exited with status 0
+```
+
+Explanation: This is a corner case, if we do not take care of this situation,
+the number-reading progress will lead to some problem, here I simply regard it
+as non-number situation.
+
+
+
+## Step 4 Testing
+
+For now, I only finished the stream redirection part.
+
+Please note that I require (a)the format of redirection signs be separted by two
+spaces, which means "cmd > file" is valid, while "cmd >file" is invalid. (b) the
+input file should differ from output files, the output files that receive stream
+from stdout and stderr can be the same.
+
+
+(1) stdout redirection
+
+Run "./myShell"
+then input "echo 123 > input.txt",
+then input "cat input.txt"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $echo 123 > input.txt
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $cat input.txt
+123
+Program exited with status 0
+```
+
+Explanation: Here we use 'echo' command to print something, but we redirect
+the stream to a file, so input.txt would contain what should be printed in cli.
+
+
+(2) stdin redirection
+
+Run "./myShell"
+then input "echo 123 > input.txt",
+then input "./myecho < input.txt",
+then input "cat input.txt"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $echo 123 > input.txt
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $./myecho < input.txt
+[stdout]hi there, this is a helper progam
+[stdout]argv[0]: ./myecho
+[stdout] Please enter something:[stdout]What you just input is: 123
+[stderr]This should be print to stderr stream
+Program exited with status 0
+```
+
+Explanation: The first command is the same as previous test to let us have a
+file containing the input. For "./myecho < input.txt" read the info in the file,
+which should be entered by user from stdin stream. The third last line indicates
+"123", which means myShell successfully pass the data from 'input.txt' to
+'myecho'.
+
+(3) stderr redirection
+
+Run "./myShell"
+then input "./myecho 2> stderr.txt",
+then input "123" for 'myecho',
+then input "cat input.txt"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $./myecho 2> stderr.txt
+[stdout]hi there, this is a helper progam
+[stdout]argv[0]: ./myecho
+[stdout] Please enter something:123
+[stdout]What you just input is: 123
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $cat stderr.txt
+[stderr]This should be print to stderr stream
+Program exited with status 0
+```
+
+Explanation: In this case, I redirect stderr to stderr.txt file. After running
+'myecho', we can use command 'cat' to show the content of stderr.txt. Here we
+see there is only one line '[stderr]This should be print to stderr stream' since
+it belongs to stderr stream.
+
+(4) Redirect stdout and stderr to the same file
+
+Run "./myShell"
+then input "./myecho 2> output.txt > output.txt",
+then input "123" for 'myecho',
+then input "cat output.txt"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $./myecho 2> output.txt > output.txt
+123
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $cat output.txt
+[stderr]This should be print to stderr stream
+[stdout]hi there, this is a helper progam
+[stdout]argv[0]: ./myecho
+[stdout] Please enter something:[stdout]What you just input is: 123
+Program exited with status 0
+```
+
+Explanation: Here we rediect stdout and stderr to the same file. This is correct
+because both stdout output and stderr output shows in output.txt.
+
+
+(5) Rediect stdin and stdout and stderr
+
+Run "./myShell"
+then input "echo 123 > input.txt",
+then input "./myecho < input.txt > stdout.txt 2> stderr.txt",
+then input "cat stdout.txt",
+then input "cat stderr.txt"
+
+The output would be:
+```
+myShell:/home/ym129/ece551/mp_miniproject $echo 123 > input.txt
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $./myecho < input.txt > stdout.txt 2> stderr.txt
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $cat stdout.txt
+[stdout]hi there, this is a helper progam
+[stdout]argv[0]: ./myecho
+[stdout] Please enter something:[stdout]What you just input is: 123
+Program exited with status 0
+myShell:/home/ym129/ece551/mp_miniproject $cat stderr.txt
+[stderr]This should be print to stderr stream
+Program exited with status 0
+```
+
+Explanation: Here we do not enter anything from stdin, nor do we output anything
+from stdout or stderr. We use input.txt as the input and stderr.txt and
+stdout.txt as the output file. We see that stderr.txt contains line leading with
+'[stderr]' tag, and stdout.txt contains lines leading with '[stdout]'.

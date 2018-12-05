@@ -44,5 +44,7 @@ class Parser
 
   // set rediections to the command.
   void set_redirection(Command * command);
+
+  bool isValidVariable(std::string);
 };
 #endif
