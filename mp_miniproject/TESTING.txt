@@ -10,6 +10,12 @@ It has the following functions:
 (2) After you run it, it can read an string(len < 100) and print it in stdout.
 (3) You will see that it can print a line that should in stderr.
 
+You need to compile myecho with following command:
+
+```
+gcc -o myecho -pedantic -Wall -Werror -ggdb3 myecho.c
+```
+
 ## Step 1 Testing
 
 (1) Exit test with "exit" command".
