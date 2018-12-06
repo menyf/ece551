@@ -75,8 +75,6 @@ Program exited with status 2
 Explanation: Since "12768" is not a valid options, so program exits with "2"
 rather than 0.
 
-(6) todo: kill example
-
 
 ## Step 2 Testing
 
