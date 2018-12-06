@@ -271,9 +271,9 @@ I treat all non-escaped blank as seperating blank, the leading blanks and
 tailing blanks do not count. There is an exception for 'set' command, we will
 test this later.
 
-(9) Escaped blank.
+(9) Escaped blank and backslash testing
 
-Run "./myShell", then input "./myecho This\ is\ an\ escaped\ line. This\ is\ another\ escaped\ line.",
+Run "./myShell", then input "./myecho \ This\ is\ an\ escaped\ line.\ \\  \ This\ is\ another\ escaped\\\ line.",
 then input "trivial_input."
 
 The output would be:
