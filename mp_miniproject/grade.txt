@@ -1,0 +1,7 @@
+Grade: 100.8
+Comments:
+No exit status number of nonexecutable file.
+More detailed comments would be better.
+After reset ECE551PATH,
+unable to automatically search
+executable file in that new path
